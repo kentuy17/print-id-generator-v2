@@ -27,7 +27,6 @@ import {
 } from "@/components/ui/sidebar";
 
 import { Link, usePage } from "@inertiajs/react";
-import { redirect } from "react-router";
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar();
@@ -93,15 +92,11 @@ export function NavUser({ user }) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => {
-                redirect("/logout");
-              }}
-            >
-              {/* <Link href={route("logout")} method="post"> */}
-              <LogOut />
-              Log out
-              {/* </Link> */}
+            <DropdownMenuItem>
+              <Link href={route("logout")} method="post">
+                <LogOut />
+                Log out
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

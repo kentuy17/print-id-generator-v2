@@ -45,8 +45,8 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Admin",
+    email: localStorage.getItem("email"),
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
@@ -88,16 +88,24 @@ const data = {
     //   ],
     // },
     { name: "Dashboard", url: "/dashboard", icon: Layers },
-    { name: "Tourists", url: "/tourists", icon: BookOpen },
-    { name: "Notifications", url: "/notifications", icon: Bell },
-    { name: "Navigation", url: "#", icon: Menu },
-    { name: "Appearance", url: "#", icon: Paintbrush },
-    { name: "Messages & media", url: "#", icon: MessageCircle },
-    { name: "Language & region", url: "#", icon: Globe },
-    { name: "Accessibility", url: "#", icon: Keyboard },
-    { name: "Mark as read", url: "#", icon: Check },
-    { name: "Audio & video", url: "#", icon: Video },
-    { name: "Connected accounts", url: "#", icon: Link },
+    {
+      name: "Tourists",
+      url: "/tourists",
+      icon: BookOpen,
+      subCategories: [
+        { title: "List", url: "/tourists" },
+        { title: "Add Tourist", url: "/tourist/create" },
+      ],
+    },
+    // { name: "Notifications", url: "/notifications", icon: Bell },
+    // { name: "Navigation", url: "#", icon: Menu },
+    // { name: "Appearance", url: "#", icon: Paintbrush },
+    // { name: "Messages & media", url: "#", icon: MessageCircle },
+    // { name: "Language & region", url: "#", icon: Globe },
+    // { name: "Accessibility", url: "#", icon: Keyboard },
+    // { name: "Mark as read", url: "#", icon: Check },
+    // { name: "Audio & video", url: "#", icon: Video },
+    // { name: "Connected accounts", url: "#", icon: Link },
     { name: "Privacy & visibility", url: "/profile", icon: Lock },
     { name: "Advanced", url: "#", icon: Settings },
     // {

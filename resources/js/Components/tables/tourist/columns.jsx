@@ -108,16 +108,12 @@ export const columns = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: "employeeId",
+    accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Employee ID"
-        className={"pl-3"}
-      />
+      <DataTableColumnHeader column={column} title="ID#" className={"pl-3"} />
     ),
     cell: ({ row }) => (
-      <div className="w-[80px] pl-3">{row.getValue("employeeId")}</div>
+      <div className="w-[80px] pl-3">{row.getValue("id")}</div>
     ),
     enableSorting: false,
     enableHiding: false,
@@ -129,10 +125,13 @@ export const columns = [
     ),
     cell: ({ row }) => {
       // const label = labels.find((label) => label.value === row.original.label);
-      // console.log(label);
-      let status = row.original.status;
-      let firstName = row.original.firstName;
-      let lastName = row.original.lastName;
+      // let statuses = [];
+      let status = statuses[Math.floor(Math.random() * statuses.length)].value; //randomly select a status
+      let firstName = row.original.first_name;
+      let lastName = row.original.last_name;
+      // let genders = { M: "boy", F: "girl" };
+      let gender = { M: "boy", F: "girl" }[row.original.gender];
+      let name = `${firstName} ${lastName}`;
 
       return (
         <div className="flex space-x-2 ml-4 items-center">
@@ -140,7 +139,8 @@ export const columns = [
           <div className={`avatar ${status.toLowerCase()}`}>
             <Avatar className={`h-10 w-10 border-2 ${getStatusStyle(status)}`}>
               <AvatarImage
-                src={`/images/${row.original.id}.png`}
+                // src={`/images/${row.original.id}.png`}
+                src={`https://avatar.iran.liara.run/public/${gender}`}
                 alt="Avatar"
               />
               <AvatarFallback className="font-semi-bold">
@@ -148,36 +148,26 @@ export const columns = [
               </AvatarFallback>
             </Avatar>
           </div>
-          <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("name")}
-          </span>
+          <span className="max-w-[500px] truncate font-medium">{name}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "nationality",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
+      <DataTableColumnHeader column={column} title="Nationality" />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status")
-      );
+      // const status = statuses.find(
+      //   (status) => status.value === row.getValue("status")
+      // );
 
-      if (!status) return null;
+      // if (!status) return null;
 
       return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon
-              className={cn(
-                "mr-2 h-4 w-4 text-muted-foreground",
-                getIconColor(status.value)
-              )}
-            />
-          )}
-          <span>{status.label}</span>
+        <div className="flex items-center">
+          <span>{row.getValue("nationality")}</span>
         </div>
       );
     },
@@ -187,14 +177,14 @@ export const columns = [
     },
   },
   {
-    accessorKey: "online",
+    accessorKey: "phone_number",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Online" />
+      <DataTableColumnHeader column={column} title="Phone Number" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
-          <span>{row.getValue("online")}</span>
+          <span>{row.getValue("phone_number")}</span>
         </div>
       );
     },

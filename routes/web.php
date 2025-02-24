@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TouristController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,9 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/tourist', function () {
-        return Inertia::render('Tourist');
-    })->name('tourist');
+    Route::get('/tourists', [TouristController::class, 'index'])->name('tourist');
+    Route::get('/tourist/create', [TouristController::class, 'create'])->name('tourist.create');
 });
 
 require __DIR__ . '/auth.php';
