@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/tourists', [TouristController::class, 'index'])->name('tourist');
     Route::get('/tourist/create', [TouristController::class, 'create'])->name('tourist.create');
+    Route::post('/tourist/store', [TouristController::class, 'store'])->name('tourist.store');
+    Route::patch('/tourist/edit/{id}', [TouristController::class, 'edit'])->name('tourist.edit'); // display form
 });
 
 require __DIR__ . '/auth.php';

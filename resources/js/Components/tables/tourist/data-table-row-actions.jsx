@@ -5,13 +5,19 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DeleteIcon, EditIcon, Pencil, PrinterIcon } from "lucide-react";
+import { Link } from "@inertiajs/react";
 
 // import { labels } from "../data/data"
 // import { taskSchema } from "../data/schema"
 
 export function DataTableRowActions({ row }) {
+  console.log(row);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,7 +30,23 @@ export function DataTableRowActions({ row }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem>
+          Print ID{" "}
+          <DropdownMenuShortcut>
+            <PrinterIcon className="h-4 w-4" />
+          </DropdownMenuShortcut>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link
+            href={`/tourist/edit/${row.original.id}`}
+            className="flex space-between w-full items-center"
+          >
+            Edit{" "}
+            <DropdownMenuShortcut>
+              <EditIcon className="h-4 w-4" />
+            </DropdownMenuShortcut>
+          </Link>
+        </DropdownMenuItem>
         {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -40,11 +62,14 @@ export function DataTableRowActions({ row }) {
             </DropdownMenuRadioGroup>
           </DropdownMenuSubContent>
         </DropdownMenuSub>
+        */}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>*/}
+          <DropdownMenuShortcut>
+            <DeleteIcon className="h-4 w-4" />
+          </DropdownMenuShortcut>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

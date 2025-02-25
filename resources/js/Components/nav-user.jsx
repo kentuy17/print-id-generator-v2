@@ -92,11 +92,15 @@ export function NavUser({ user }) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem
+            // onClick={() => {
+            //   redirect(route("logout"));
+            // }}
+            >
               <Link href={route("logout")} method="post">
                 <LogOut />
-                Log out
               </Link>
+              <span>Log out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

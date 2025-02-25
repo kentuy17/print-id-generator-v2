@@ -43,7 +43,7 @@ import moment from "moment";
 import { useStateContext } from "@/context/ContextProvider";
 import { useForm as inertiaForm } from "@inertiajs/react";
 
-export default function Create() {
+export default function Edit({ tourist }) {
   const { toast } = useToast();
   const [formStep, setFormStep] = React.useState(0);
   let formInitVals = {
@@ -81,10 +81,10 @@ export default function Create() {
       data[key] = formVals[key];
     });
     console.log(data);
-    post(route("tourist.store"), {
+    post(route("tourist.patch"), {
       onSuccess: (data) => {
         toast({
-          title: "Tourist Added",
+          title: "Update info",
           description: "Tourist Added Successfully",
           status: "success",
           duration: 9000,

@@ -35,13 +35,13 @@ export default function Login({
 
     post(route("login"), {
       onFinish: (resp) => {
-        console.log(resp, "response");
+        // console.log(resp, "response");
 
         reset("password");
         localStorage.setItem("email", data.email);
       },
       onError: (error) => {
-        alert(JSON.stringify(error));
+        alert(error.email);
       },
     });
   };

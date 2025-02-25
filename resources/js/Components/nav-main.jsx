@@ -22,15 +22,9 @@ import {
 } from "@/components/ui/sidebar";
 
 import { Link, usePage } from "@inertiajs/react";
-import { useEffect } from "react";
 
 export function NavMain({ items }) {
   const appName = "Menu";
-
-  useEffect(() => {
-    console.log(items);
-    console.log(route().current());
-  }, []);
 
   return (
     <SidebarGroup>
@@ -39,7 +33,11 @@ export function NavMain({ items }) {
         {items.map((item) => (
           <Collapsible key={item.name} asChild defaultOpen={!item.isActive}>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={item.name}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.name}
+                isActive={item.route === route().current()}
+              >
                 <Link href={item.subCategories?.length ? "#" : item.url}>
                   <item.icon />
                   <span>{item.name}</span>
@@ -57,7 +55,10 @@ export function NavMain({ items }) {
                     <SidebarMenuSub>
                       {item.subCategories?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton asChild>
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={subItem.route === route().current()}
+                          >
                             <Link href={subItem.url}>
                               <span>{subItem.title}</span>
                             </Link>

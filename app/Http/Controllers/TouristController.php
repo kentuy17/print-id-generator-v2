@@ -17,7 +17,7 @@ class TouristController extends Controller
     public function index(): Response
     {
         return Inertia::render('Tourist/List', [
-            'data' => Tourist::get(),
+            'data' => Tourist::orderBy('id', 'desc')->get()
         ]);
     }
 
@@ -29,11 +29,39 @@ class TouristController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
+            'firstName' => 'required',
             'email' => 'required',
-            'phone' => 'required',
         ]);
 
-        return redirect()->intended(route('tourist.index', absolute: false));
+        Tourist::create([
+            'first_name' => $request->firstName,
+            'last_name' => $request->lastName,
+            'email' => $request->email,
+            'phone_number' => $request->phone,
+            'address' => $request->address,
+            'city' => $request->cityState,
+            'nationality' => $request->nationality,
+            'country' => $request->country,
+            'zip_code' => random_int(1000, 9999),
+            'gender' => substr(ucfirst($request->gender), 0, 1),
+            'date_of_birth' => $request->arrivalDate,
+
+        ]);
+
+        return redirect()->intended(route('tourist', absolute: false));
+    }
+
+    public function edit($id): Response
+    {
+        return Inertia::render('Tourist/Edit', [
+            'tourist' => Tourist::find($id),
+        ]);
+    }
+
+    public function patch(Request $request): RedirectResponse
+    {
+        $tourist = Tourist::find($request->id);
+        $tourist->save();
+        return Redirect::route('tourist.edit', $tourist->id);
     }
 }
