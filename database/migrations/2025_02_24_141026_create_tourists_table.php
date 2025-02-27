@@ -15,17 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->date('arival_date');
+            $table->date('arrival_date');
             $table->string('nationality');
             $table->string('passport_number')->nullable();
             $table->string('phone_number');
             $table->string('email')->unique();
             $table->enum('gender', ['M', 'F']);
-            $table->date('date_of_birth');
-            $table->string('address');
-            $table->string('city');
-            $table->string('country');
-            $table->string('zip_code');
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('zip_code')->nullable();
             $table->timestamps();
         });
     }

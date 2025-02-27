@@ -9,15 +9,19 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DeleteIcon, EditIcon, Pencil, PrinterIcon } from "lucide-react";
+import {
+  DeleteIcon,
+  EditIcon,
+  // Pencil,
+  PrinterIcon,
+  // ViewIcon,
+} from "lucide-react";
 import { Link } from "@inertiajs/react";
-
-// import { labels } from "../data/data"
-// import { taskSchema } from "../data/schema"
+import { ViewTouristDialog } from "@/Pages/Tourist/View";
+import { DeleteTouristDialog } from "@/Pages/Tourist/Delete";
+// import { PrintButton } from "@/Components/print-button";
 
 export function DataTableRowActions({ row }) {
-  console.log(row);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,10 +39,15 @@ export function DataTableRowActions({ row }) {
           <DropdownMenuShortcut>
             <PrinterIcon className="h-4 w-4" />
           </DropdownMenuShortcut>
+          {/* <PrintButton row={row} /> */}
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <ViewTouristDialog row={row} />
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link
-            href={`/tourist/edit/${row.original.id}`}
+            href={route("tourist.edit", row.original.id)}
             className="flex space-between w-full items-center"
           >
             Edit{" "}
@@ -47,28 +56,9 @@ export function DataTableRowActions({ row }) {
             </DropdownMenuShortcut>
           </Link>
         </DropdownMenuItem>
-        {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={task.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        */}
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>
-            <DeleteIcon className="h-4 w-4" />
-          </DropdownMenuShortcut>
+        <DropdownMenuItem asChild>
+          <DeleteTouristDialog row={row} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

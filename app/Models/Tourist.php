@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tourist extends Model
 {
+    use SoftDeletes;
     //
     protected $fillable = [
+        'id_no',
         'first_name',
         'last_name',
         'nationality',
@@ -20,6 +23,7 @@ class Tourist extends Model
         'city',
         'country',
         'zip_code',
+        'arrival_date',
         'created_at',
         'updated_at',
     ];

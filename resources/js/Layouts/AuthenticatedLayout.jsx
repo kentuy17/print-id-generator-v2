@@ -14,6 +14,8 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
+import { Toaster } from "@/components/ui/sonner";
+
 export default function Page({ children }) {
   return (
     <SidebarProvider>
@@ -45,6 +47,7 @@ export default function Page({ children }) {
             <div className="aspect-video rounded-xl bg-muted/50" />
             <div className="aspect-video rounded-xl bg-muted/50" />
           </div> */}
+          <Toaster />
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
       </SidebarInset>

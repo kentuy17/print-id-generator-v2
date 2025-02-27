@@ -112,7 +112,7 @@ const data = {
     // { name: "Language & region", url: "#", icon: Globe },
     // { name: "Accessibility", url: "#", icon: Keyboard },
     // { name: "Mark as read", url: "#", icon: Check },
-    { name: "ID Template", url: "#", icon: IdCardIcon },
+    { name: "ID Template", url: "/playground", icon: IdCardIcon },
     // { name: "Connected accounts", url: "#", icon: Link },
     // { name: "Privacy & visibility", url: "/profile", icon: Lock },
     {

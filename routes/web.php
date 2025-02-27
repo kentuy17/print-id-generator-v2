@@ -20,6 +20,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/playground', function() {
+        return Inertia::render('Playground');
+    });
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -27,7 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/tourists', [TouristController::class, 'index'])->name('tourist');
     Route::get('/tourist/create', [TouristController::class, 'create'])->name('tourist.create');
     Route::post('/tourist/store', [TouristController::class, 'store'])->name('tourist.store');
-    Route::patch('/tourist/edit/{id}', [TouristController::class, 'edit'])->name('tourist.edit'); // display form
+    Route::get('/tourist/edit/{id}', [TouristController::class, 'edit'])->name('tourist.edit'); // display form
+    Route::get('/tourist/show/{id}', [TouristController::class, 'getItemById'])->name('tourist.show'); // display data
+    Route::patch('/tourist/update/{id}', [TouristController::class, 'update'])->name('tourist.update');
+    Route::delete('/tourist/delete/{id}', [TouristController::class, 'delete'])->name('tourist.delete');
 });
 
 require __DIR__ . '/auth.php';

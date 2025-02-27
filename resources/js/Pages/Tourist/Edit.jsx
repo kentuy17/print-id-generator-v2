@@ -34,33 +34,35 @@ import { useForm } from "react-hook-form";
 import { registerSchema } from "@/validators/add";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+// import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { DatePicker } from "@/Components/date-picker";
 import moment from "moment";
 import { useStateContext } from "@/context/ContextProvider";
 import { useForm as inertiaForm } from "@inertiajs/react";
 
 export default function Edit({ tourist }) {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [formStep, setFormStep] = React.useState(0);
   let formInitVals = {
-    firstName: "",
-    lastName: "",
-    phone: "",
+    id: tourist.id,
+    firstName: tourist.first_name,
+    lastName: tourist.last_name,
+    phone: tourist.phone_number,
     arrivalDate: moment(),
-    nationality: "",
-    address: "",
-    cityState: "",
-    country: "",
-    passportNumber: "",
-    zip: "",
-    gender: "",
-    email: "",
+    nationality: tourist.nationality,
+    address: tourist.address,
+    cityState: tourist.city,
+    country: tourist.country,
+    passportNumber: tourist.passport_number,
+    zip: tourist.zip_code,
+    gender: tourist.gender === "M" ? "Male" : "Female",
+    email: tourist.email,
   };
-  const { post, data } = inertiaForm(formInitVals);
+  const { data, patch } = inertiaForm(formInitVals);
   const form = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: formInitVals,
@@ -76,24 +78,29 @@ export default function Edit({ tourist }) {
 
     let formVals = form.getValues();
     formVals.arrivalDate = moment(date).format("YYYY-MM-DD");
+    data.gender = formVals.gender === "Male" ? "M" : "F";
     let keys = Object.keys(data);
+
     keys.forEach((key) => {
       data[key] = formVals[key];
     });
-    console.log(data);
-    post(route("tourist.patch"), {
+    // console.log(data, "gg");
+    patch(route("tourist.update", tourist.id), {
       onSuccess: (data) => {
-        toast({
-          title: "Update info",
-          description: "Tourist Added Successfully",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
+        // toast({
+        //   title: "Update info",
+        //   description: "Tourist Added Successfully",
+        //   // status: "success",
+        //   // duration: 9000,
+        //   // isClosable: true,
+        // });
+        // toast("Info Updated Successfully");
+        alert("Info Updated Successfully");
       },
     });
-    // console.log(formVals);
   }
+
+  // console.log(tourist);
 
   return (
     <AuthenticatedLayout
@@ -177,7 +184,12 @@ export default function Edit({ tourist }) {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Gender</FormLabel>
-                          <Select onValueChange={field.onChange}>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={
+                              tourist.gender == "F" ? "Female" : "Male"
+                            }
+                          >
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select gender" />
@@ -381,18 +393,6 @@ export default function Edit({ tourist }) {
                   </motion.div>
                   <div className="flex gap-2">
                     <Button
-                      type="submit"
-                      className={cn({
-                        hidden: formStep == 0,
-                      })}
-                      onSubmit={() => {
-                        let items = ["cityState", "country"];
-                        form.trigger(items);
-                      }}
-                    >
-                      Submit
-                    </Button>
-                    <Button
                       type="button"
                       variant={"ghost"}
                       className={cn({
@@ -412,12 +412,14 @@ export default function Edit({ tourist }) {
                         form.trigger(items);
 
                         items.forEach((item) => {
-                          if (
-                            !form.getFieldState(item).isDirty ||
-                            form.getFieldState(item).invalid
-                          ) {
+                          if (form.getFieldState(item).invalid) {
                             // formStep = 1;
                             console.log(item);
+                            console.log({
+                              ...form.getFieldState(item),
+                              invalid: form.getFieldState(item).invalid,
+                              isDirty: form.getFieldState(item).isDirty,
+                            });
 
                             error = true;
                             return;
@@ -441,7 +443,20 @@ export default function Edit({ tourist }) {
                         hidden: formStep == 0,
                       })}
                     >
-                      Go Back
+                      <ArrowLeft className="w-4 h-4 ml-2" />
+                      Back
+                    </Button>
+                    <Button
+                      type="submit"
+                      className={cn({
+                        hidden: formStep == 0,
+                      })}
+                      onSubmit={() => {
+                        let items = ["cityState", "country"];
+                        form.trigger(items);
+                      }}
+                    >
+                      Save
                     </Button>
                   </div>
                 </form>

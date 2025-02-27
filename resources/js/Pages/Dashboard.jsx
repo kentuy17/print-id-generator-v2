@@ -1,3 +1,4 @@
+import { BarChartComponent } from "@/Components/bar-chart";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
@@ -115,7 +116,9 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-black md:min-h-min" />
+        <div className="h-[350px] flex-1 rounded-xl bg-black md:min-h-min">
+          <BarChartComponent />
+        </div>
       </div>
     </AuthenticatedLayout>
   );

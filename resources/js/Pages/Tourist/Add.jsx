@@ -333,7 +333,6 @@ export default function Create() {
                               type="text"
                               onChange={(e) => {
                                 form.setValue("cityState", e.target.value);
-                                console.log(e.target.value);
                               }}
                             />
                           </FormControl>

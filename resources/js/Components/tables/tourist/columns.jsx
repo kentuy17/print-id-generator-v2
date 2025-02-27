@@ -108,12 +108,12 @@ export const columns = [
   //   enableHiding: false,
   // },
   {
-    accessorKey: "id",
+    accessorKey: "id_no",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ID#" className={"pl-3"} />
+      <DataTableColumnHeader column={column} title="ID" className={"pl-3"} />
     ),
     cell: ({ row }) => (
-      <div className="w-[80px] pl-3">{row.getValue("id")}</div>
+      <div className="w-[80px] pl-3">#{row.getValue("id_no")}</div>
     ),
     enableSorting: false,
     enableHiding: false,
@@ -124,12 +124,9 @@ export const columns = [
       <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
-      // const label = labels.find((label) => label.value === row.original.label);
-      // let statuses = [];
       let status = statuses[Math.floor(Math.random() * statuses.length)].value; //randomly select a status
       let firstName = row.original.first_name;
       let lastName = row.original.last_name;
-      // let genders = { M: "boy", F: "girl" };
       let gender = { M: "boy", F: "girl" }[row.original.gender];
       let name = `${firstName} ${lastName}`;
 
@@ -171,7 +168,7 @@ export const columns = [
         </div>
       );
     },
-    // toggleSorting: true,
+    toggleSorting: true,
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },

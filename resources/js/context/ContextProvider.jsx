@@ -16,9 +16,9 @@ export const ContextProvider = ({ children }) => {
   const [date, setDate] = useState(newDate());
   // const [employeeId, setEmployeeId] = useState(0);
 
-  useEffect(() => {
-    console.log(date, "contextprovider");
-  }, [date]);
+  // useEffect(() => {
+  //   console.log(date, "contextprovider");
+  // }, [date]);
 
   return (
     <StateContext.Provider
