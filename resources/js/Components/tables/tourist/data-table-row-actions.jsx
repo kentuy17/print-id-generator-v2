@@ -1,15 +1,25 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 
-import { Button } from "@ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@ui/dropdown-menu";
-
-// import { labels } from "../data/data"
-// import { taskSchema } from "../data/schema"
+} from "@/components/ui/dropdown-menu";
+import {
+  DeleteIcon,
+  EditIcon,
+  // Pencil,
+  PrinterIcon,
+  // ViewIcon,
+} from "lucide-react";
+import { Link } from "@inertiajs/react";
+import { ViewTouristDialog } from "@/Pages/Tourist/View";
+import { DeleteTouristDialog } from "@/Pages/Tourist/Delete";
+// import { PrintButton } from "@/Components/print-button";
 
 export function DataTableRowActions({ row }) {
   return (
@@ -24,27 +34,32 @@ export function DataTableRowActions({ row }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        {/* <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={task.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator />
         <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>*/}
+          Print ID{" "}
+          <DropdownMenuShortcut>
+            <PrinterIcon className="h-4 w-4" />
+          </DropdownMenuShortcut>
+          {/* <PrintButton row={row} /> */}
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <ViewTouristDialog row={row} />
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link
+            href={route("tourist.edit", row.original.id)}
+            className="flex space-between w-full items-center"
+          >
+            Edit{" "}
+            <DropdownMenuShortcut>
+              <EditIcon className="h-4 w-4" />
+            </DropdownMenuShortcut>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <DeleteTouristDialog row={row} />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

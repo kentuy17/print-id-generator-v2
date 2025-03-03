@@ -34,7 +34,15 @@ export default function Login({
     e.preventDefault(); // prevent default form submission
 
     post(route("login"), {
-      onFinish: () => reset("password"),
+      onFinish: (resp) => {
+        // console.log(resp, "response");
+
+        reset("password");
+        localStorage.setItem("email", data.email);
+      },
+      onError: (error) => {
+        alert(error.email);
+      },
     });
   };
 

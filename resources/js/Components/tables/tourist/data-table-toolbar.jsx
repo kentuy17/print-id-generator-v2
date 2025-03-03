@@ -1,7 +1,8 @@
 import { Cross2Icon } from "@radix-ui/react-icons";
 
-import { Button } from "@ui/button";
-import { Input } from "@ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 import { DataTableViewOptions } from "./data-table-view-options";
 
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
@@ -13,24 +14,24 @@ export function DataTableToolbar({ table }) {
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter by employee ID..."
-          value={table.getColumn("employeeId")?.getFilterValue() ?? ""}
+          placeholder="Filter by Name..."
+          value={table.getColumn("name")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("employeeId")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
         <Input
-          placeholder="Filter employee name=..."
+          placeholder="Filter Nationality..."
           value={table.getColumn("name")?.getFilterValue() ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />{" "}
-        {table.getColumn("status") && (
+        {table.getColumn("nationality") && (
           <DataTableFacetedFilter
-            column={table.getColumn("status")}
+            column={table.getColumn("nationality")}
             title="Status"
             options={[
               { value: "Active", label: "Active" },

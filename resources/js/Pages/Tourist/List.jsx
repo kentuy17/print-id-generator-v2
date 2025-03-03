@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 import { DataTable } from "@/components/tables/tourist/data-table";
+import { columns } from "@/components/tables/tourist/columns";
 
 export default function Tourist({ data }) {
   return (

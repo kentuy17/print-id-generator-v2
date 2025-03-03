@@ -8,8 +8,10 @@ import {
   Command,
   Frame,
   GalleryVerticalEnd,
+  LifeBuoy,
   Map,
   PieChart,
+  Send,
   Settings2,
   SquareTerminal,
 } from "lucide-react";
@@ -33,6 +35,7 @@ import {
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
+import { NavSecondary } from "@/components/nav-secondary";
 import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
@@ -41,12 +44,13 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { IdCardIcon } from "@radix-ui/react-icons";
 
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Admin",
+    email: localStorage.getItem("email"),
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
@@ -87,19 +91,36 @@ const data = {
     //     },
     //   ],
     // },
-    { name: "Dashboard", url: "/dashboard", icon: Layers },
-    { name: "Tourists", url: "/tourists", icon: BookOpen },
-    { name: "Notifications", url: "/notifications", icon: Bell },
+    { name: "Dashboard", url: "/dashboard", icon: Layers, route: "dashboard" },
+    {
+      name: "Tourists",
+      url: "/tourists",
+      icon: BookOpen,
+      subCategories: [
+        { title: "View all Tourists", url: "/tourists", route: "tourist" },
+        {
+          title: "Add Tourist",
+          url: "/tourist/create",
+          route: "tourist.create",
+        },
+      ],
+    },
+    // { name: "Notifications", url: "/notifications", icon: Bell },
     { name: "Navigation", url: "#", icon: Menu },
     { name: "Appearance", url: "#", icon: Paintbrush },
-    { name: "Messages & media", url: "#", icon: MessageCircle },
-    { name: "Language & region", url: "#", icon: Globe },
-    { name: "Accessibility", url: "#", icon: Keyboard },
-    { name: "Mark as read", url: "#", icon: Check },
-    { name: "Audio & video", url: "#", icon: Video },
-    { name: "Connected accounts", url: "#", icon: Link },
-    { name: "Privacy & visibility", url: "/profile", icon: Lock },
-    { name: "Advanced", url: "#", icon: Settings },
+    // { name: "Messages & media", url: "#", icon: MessageCircle },
+    // { name: "Language & region", url: "#", icon: Globe },
+    // { name: "Accessibility", url: "#", icon: Keyboard },
+    // { name: "Mark as read", url: "#", icon: Check },
+    { name: "ID Template", url: "/playground", icon: IdCardIcon },
+    // { name: "Connected accounts", url: "#", icon: Link },
+    // { name: "Privacy & visibility", url: "/profile", icon: Lock },
+    {
+      name: "Profile Settings",
+      url: "/profile",
+      icon: Settings,
+      route: "profile.edit",
+    },
     // {
     //   title: "Models",
     //   url: "#",
@@ -183,6 +204,18 @@ const data = {
       icon: Map,
     },
   ],
+  navSecondary: [
+    {
+      title: "Support",
+      url: "#",
+      icon: LifeBuoy,
+    },
+    {
+      title: "Feedback",
+      url: "#",
+      icon: Send,
+    },
+  ],
 };
 
 export function AppSidebar({ ...props }) {
@@ -207,6 +240,7 @@ export function AppSidebar({ ...props }) {
       <SidebarContent>
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       {/* <SidebarFooter>
         <NavUser user={data.user} />
