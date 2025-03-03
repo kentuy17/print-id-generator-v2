@@ -13,6 +13,7 @@ import {
   QuestionMarkCircledIcon,
 } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import axios from "axios";
 
 export const statuses = [
   {
@@ -80,6 +81,15 @@ const getStatusStyle = (status) => {
     default:
       return "border-gray-300";
   }
+};
+
+const fetchRandomImage = async (gender) => {
+  const img = await axios
+    .get(`https://avatar.iran.liara.run/public/${gender}`)
+    .then((response) => {
+      return response.data;
+    });
+  return img;
 };
 
 export const columns = [

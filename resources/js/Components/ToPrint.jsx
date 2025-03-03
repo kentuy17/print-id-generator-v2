@@ -1,7 +1,8 @@
 import * as React from "react";
 
 // import image from "../test_image.png";
-const image = window.location.origin + "/avatars/shadcn.jpg";
+// const image = window.location.origin + "/avatars/shadcn.jpg";
+const image = window.location.origin + "/templates/Template_2.png";
 
 export const ToPrint = React.forwardRef((props, ref) => {
   const { text } = props;
@@ -22,14 +23,14 @@ export const ToPrint = React.forwardRef((props, ref) => {
     }
   }, []);
 
-  React.useEffect(() => {
-    const shadowRoot = shadowRootHostEl.current?.attachShadow({ mode: "open" });
-    if (shadowRoot) {
-      const div = document.createElement("div");
-      div.innerHTML = "Shadow DOM Content";
-      shadowRoot.appendChild(div);
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   const shadowRoot = shadowRootHostEl.current?.attachShadow({ mode: "open" });
+  //   if (shadowRoot) {
+  //     const div = document.createElement("div");
+  //     div.innerHTML = "Shadow DOM Content";
+  //     shadowRoot.appendChild(div);
+  //   }
+  // }, []);
 
   return (
     <div className="relativeCSS" ref={ref}>
@@ -48,16 +49,16 @@ export const ToPrint = React.forwardRef((props, ref) => {
       {/* <link href="./as-style.css" rel="stylesheet" /> */}
       <div className="flash" />
 
-      <div className="w-full min-h-[100vh] flex items-center justify-center">
+      <div className="w-full min-h-[65vh] flex items-center justify-center py-8">
         <img
           alt="A test image"
-          className="object-center size-200"
+          className="object-center size-150"
           src={image}
           // width="200"
         />
       </div>
 
-      <div ref={shadowRootHostEl} />
+      {/* <div ref={shadowRootHostEl} /> */}
     </div>
   );
 });

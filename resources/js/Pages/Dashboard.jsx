@@ -1,4 +1,11 @@
 import { BarChartComponent } from "@/Components/bar-chart";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/Components/ui/card";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
@@ -116,8 +123,22 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="h-[350px] flex-1 rounded-xl bg-black md:min-h-min">
+        {/* <div className="h-[350px] flex-1 rounded-xl bg-black md:min-h-min">
           <BarChartComponent />
+        </div> */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+          <BarChartComponent />
+          <Card className="col-span-3">
+            <CardHeader>
+              <CardTitle>Recently Added</CardTitle>
+              <CardDescription>
+                Registerd 259 tourists this month.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex-1 rounded-xl bg-black md:min-h-min"></div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </AuthenticatedLayout>

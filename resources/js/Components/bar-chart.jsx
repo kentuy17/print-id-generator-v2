@@ -52,10 +52,10 @@ export function BarChartComponent() {
   };
 
   return (
-    <Card>
+    <Card className="col-span-4">
       <CardHeader>
-        <CardTitle>Bar Chart - Active</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Overview</CardTitle>
+        <CardDescription>January - June 2025</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

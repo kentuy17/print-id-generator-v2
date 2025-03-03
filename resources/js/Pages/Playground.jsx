@@ -1,6 +1,7 @@
 import { PrintBasic } from "@/Components/PrintBasic";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import { Separator } from "@radix-ui/react-select";
 
 export default function Playground() {
   return (
@@ -13,11 +14,20 @@ export default function Playground() {
     >
       <Head title="Playground" />
 
-      <div className="py-12">
-        <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-          <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
-            <PrintBasic />
+      <div className="max-w-7xl space-y-6 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <h2 className="text-2xl font-semibold tracking-tight">
+              ID Templates
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Choose from the following template to use in printing the ID.
+            </p>
           </div>
+        </div>
+        <Separator className="my-4" />
+        <div className="bg-white p-4 shadow sm:rounded-lg sm:p-5">
+          <PrintBasic />
         </div>
       </div>
     </AuthenticatedLayout>

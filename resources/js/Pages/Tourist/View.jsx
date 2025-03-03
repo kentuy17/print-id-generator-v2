@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-import { ViewIcon } from "lucide-react";
+import { EyeIcon, ViewIcon } from "lucide-react";
 import { useState } from "react";
 
 import moment from "moment";
@@ -31,7 +31,7 @@ export function ViewTouristDialog({ row }) {
       <DialogTrigger asChild>
         <div
           role="menuitem"
-          class="relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&amp;>svg]:size-4 [&amp;>svg]:shrink-0"
+          className="relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&amp;>svg]:size-4 [&amp;>svg]:shrink-0"
           tabIndex="-1"
           data-orientation="vertical"
           data-radix-collection-item=""
@@ -40,9 +40,9 @@ export function ViewTouristDialog({ row }) {
             href="#"
             className="flex items-center gap-2 w-full space-between flex-row"
           >
-            <span>View</span>
+            <span>Details</span>
             <span className="ml-auto text-xs tracking-widest opacity-60">
-              <ViewIcon className="h-4 w-4" />
+              <EyeIcon className="h-4 w-4" />
             </span>
           </a>
         </div>
