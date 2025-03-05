@@ -45,7 +45,6 @@ const nameStyle = {
   color: "#f9f9f9",
   fontSize: "3rem",
   textShadow: "2px 2px black", // rgba(0, 0, 0, 0.25)
-  // text-shadow: 2px 2px #FF0000;
 };
 
 const dateStyle = {
@@ -59,33 +58,19 @@ const dateStyle = {
   fontSize: "1rem",
   textShadow: "2px 2px black", // rgba(0, 0, 0, 0.25)
   display: "block",
+  fontStyle: "italic",
 };
 
 export function Print({ row }) {
   const [open, setOpen] = useState(false);
   const { config } = usePage().props;
-  // const [template, setTemplate] = useState(null);
-  // const componentRef = useRef(null);
-
-  // console.log(row.original, "oten");
-
-  // axios.get(route("id-template.active")).then((response) => {
-  //   console.log(response.data, "template");
-  //   setTemplate(response.data);
-  // });
-
-  // const template = axios.get(route("id-template.active")).then((response) => {
-  //   console.log(response.data, "template");
-  //   setTemplate(response.data);
-  // });
-
   const { template } = config;
 
   console.log(template, "globals");
 
-  function displayName() {
+  const displayName = () => {
     return template.filename === "clean_template_1.png" ? "block" : "hidden";
-  }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -114,7 +99,6 @@ export function Print({ row }) {
           <DialogDescription>ID#: {row.original.id_no}</DialogDescription>
         </DialogHeader>
         <DialogDescription></DialogDescription>
-        {/* <pre>{JSON.stringify(row.original, null, 2)}</pre> */}
         <div className={`w-[${template.width}px] flex items-center`}>
           <span style={nameStyle} className={displayName()}>
             {`${row.original.first_name} ${row.original.last_name}`}
