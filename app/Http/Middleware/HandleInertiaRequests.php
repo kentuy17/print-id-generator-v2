@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Template;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -34,6 +35,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'config' => [
+                'template' => Template::where('is_active', true)->first(),
+
+            ]
         ];
     }
 }

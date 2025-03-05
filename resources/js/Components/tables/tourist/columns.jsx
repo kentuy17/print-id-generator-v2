@@ -125,8 +125,8 @@ export const columns = [
     cell: ({ row }) => (
       <div className="w-[80px] pl-3">#{row.getValue("id_no")}</div>
     ),
-    enableSorting: false,
-    enableHiding: false,
+    enableSorting: true,
+    enableHiding: true,
   },
   {
     accessorKey: "name",
@@ -158,6 +158,12 @@ export const columns = [
           <span className="max-w-[500px] truncate font-medium">{name}</span>
         </div>
       );
+    },
+    filterFn: (row, id, filterValue) => {
+      const rowValue = row.getValue("firstName");
+      console.log(rowValue, "rowValue");
+
+      return filterValue.includes(rowValue.toLowerCase());
     },
   },
   {
