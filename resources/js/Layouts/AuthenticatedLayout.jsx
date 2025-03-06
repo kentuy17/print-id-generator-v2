@@ -16,7 +16,11 @@ import {
 
 import { Toaster } from "@/components/ui/sonner";
 
-export default function Page({ children }) {
+export default function Page({
+  children,
+  breadcrumb = "Building Your Application",
+  subBread = "Data Fetching",
+}) {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -29,12 +33,13 @@ export default function Page({ children }) {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Building Your Application
+                    {/* Building Your Application */}
+                    {breadcrumb}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>{subBread}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

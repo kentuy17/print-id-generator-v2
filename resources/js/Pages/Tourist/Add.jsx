@@ -102,6 +102,8 @@ export default function Create() {
           Tourist
         </h2>
       }
+      breadcrumb='Tourist'
+      subBread='Add'
     >
       <Head title="Add Tourist" />
       <div className="py-12">

@@ -93,13 +93,16 @@ export function Print({ row }) {
           </a>
         </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent
+        className={`min-w-[${template.width}px] sm:w-full sm:max-w-lg`}
+      >
         <DialogHeader>
           <DialogTitle>{`${row.original.first_name} ${row.original.last_name}`}</DialogTitle>
           <DialogDescription>ID#: {row.original.id_no}</DialogDescription>
         </DialogHeader>
         <DialogDescription></DialogDescription>
         <div className={`w-[${template.width}px] flex items-center`}>
+          {/* <div className={`w-80 sm:w-full sm:max-w-lg flex items-center`}> */}
           <span style={nameStyle} className={displayName()}>
             {`${row.original.first_name} ${row.original.last_name}`}
           </span>
@@ -112,7 +115,7 @@ export function Print({ row }) {
           />
         </div>
         <DialogFooter>
-          <Button onClick={() => setOpen(!open)}>OK</Button>
+          <Button onClick={() => setOpen(!open)}>Print</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

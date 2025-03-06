@@ -13,6 +13,8 @@ export default function Template({ data }) {
           Template
         </h2>
       }
+      breadcrumb='ID Template'
+      subBread=''
     >
       <Head title="Template" />
 
