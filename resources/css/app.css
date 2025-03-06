@@ -115,3 +115,35 @@
 .max-h-10vh {
     max-height: 10vh;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 5px;
+    background-color: dodgerblue;
+    padding: 10px;
+}
+
+.grid-container>span {
+    text-align: left;
+    /* padding: 10px; */
+}
+
+.item-name {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 12;
+    grid-row-end: 13;
+    align-self: flex-end;
+    padding-left: 20px;
+    padding-bottom: 0;
+}
+
+.item-date {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 13;
+    grid-row-end: 13;
+    align-self: self-start;
+    padding: 5px;
+}
