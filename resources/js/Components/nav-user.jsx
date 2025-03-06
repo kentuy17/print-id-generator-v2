@@ -92,15 +92,15 @@ export function NavUser({ user }) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-            // onClick={() => {
-            //   redirect(route("logout"));
-            // }}
-            >
-              <Link href={route("logout")} method="post">
+            <DropdownMenuItem asChild>
+              <Link
+                className="w-full cursor-pointer"
+                href={route("logout")}
+                method="post"
+              >
                 <LogOut />
+                <span>Log out</span>
               </Link>
-              <span>Log out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

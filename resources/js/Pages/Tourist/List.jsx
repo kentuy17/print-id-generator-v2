@@ -12,6 +12,8 @@ export default function Tourist({ data }) {
           Tourist
         </h2>
       }
+      breadcrumb="Tourist"
+      subBread="View All"
     >
       <Head title="Tourists" />
 

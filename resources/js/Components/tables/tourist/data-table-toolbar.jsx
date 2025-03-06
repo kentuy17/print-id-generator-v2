@@ -23,9 +23,9 @@ export function DataTableToolbar({ table }) {
         />
         <Input
           placeholder="Filter Nationality..."
-          value={table.getColumn("name")?.getFilterValue() ?? ""}
+          value={table.getColumn("nationality")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("nationality")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />{" "}

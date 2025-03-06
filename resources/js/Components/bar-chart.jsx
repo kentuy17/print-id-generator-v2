@@ -30,23 +30,23 @@ export function BarChartComponent() {
       label: "Visitors",
     },
     chrome: {
-      label: "Chrome",
+      label: "September",
       color: "hsl(var(--chart-1))",
     },
     safari: {
-      label: "Safari",
+      label: "October",
       color: "hsl(var(--chart-2))",
     },
     firefox: {
-      label: "Firefox",
+      label: "November",
       color: "hsl(var(--chart-3))",
     },
     edge: {
-      label: "Edge",
+      label: "December",
       color: "hsl(var(--chart-4))",
     },
     other: {
-      label: "Other",
+      label: "January",
       color: "hsl(var(--chart-5))",
     },
   };
@@ -55,7 +55,7 @@ export function BarChartComponent() {
     <Card className="col-span-4">
       <CardHeader>
         <CardTitle>Overview</CardTitle>
-        <CardDescription>January - June 2025</CardDescription>
+        <CardDescription>September 2024 - January 2025</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

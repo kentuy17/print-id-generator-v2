@@ -19,6 +19,7 @@ import {
 import { Link } from "@inertiajs/react";
 import { ViewTouristDialog } from "@/Pages/Tourist/View";
 import { DeleteTouristDialog } from "@/Pages/Tourist/Delete";
+import { Print } from "@/Pages/Tourist/Print";
 // import { PrintButton } from "@/Components/print-button";
 
 export function DataTableRowActions({ row }) {
@@ -34,12 +35,8 @@ export function DataTableRowActions({ row }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>
-          Print ID{" "}
-          <DropdownMenuShortcut>
-            <PrinterIcon className="h-4 w-4" />
-          </DropdownMenuShortcut>
-          {/* <PrintButton row={row} /> */}
+        <DropdownMenuItem asChild>
+          <Print row={row} />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
