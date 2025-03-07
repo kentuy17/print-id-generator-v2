@@ -4,7 +4,10 @@ const DestinationHighlight = () => {
   return (
     <div className="my-16 mb-40">
       <div className="mx-auto px-4 py-8 max-w-7xl">
-        <h2 className="text-4xl font-bold tracking-wide text-gray-800 sm:text-5xl">
+        {/* <h2 className="text-4xl font-bold tracking-wide text-gray-800 sm:text-5xl">
+          Destination Highlight
+        </h2> */}
+        <h2 className="mb-4 text-center text-3xl font-bold text-gray-900 md:mb-6 lg:text-4xl">
           Destination Highlight
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 mt-8 gap-6">
@@ -13,7 +16,7 @@ const DestinationHighlight = () => {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet="/_astro/coron1.d9091518_GDi58.avif 400w,/_astro/coron1.d9091518_1cdYTn.avif 800w,/_astro/coron1.d9091518_1D9KKf.avif 1200w"
+                  srcSet="/_astro/coron1.d9091518_GDi58.avif 400w,/_astro/coron1.d9091518_1cdYTn.avif 800w,/templates/Cambugahay-Falls-8.jpg 1200w"
                 />
                 <source
                   type="image/webp"
@@ -21,18 +24,18 @@ const DestinationHighlight = () => {
                 />
                 <source
                   type="image/jpeg"
-                  srcSet="/_astro/coron1.d9091518_ZuEnco.jpg 400w,/_astro/coron1.d9091518_1XpFt8.jpg 800w,/_astro/coron1.d9091518_Z1hP9Uv.jpg 1200w"
+                  srcSet="/templates/Cambugahay-Falls-8.jpg 400w,/templates/Cambugahay-Falls-8.jpg 800w,/templates/Cambugahay-Falls-8.jpg 1200w"
                 />
                 <img
                   alt="Coron"
-                  src="/_astro/coron1.d9091518_Z1hP9Uv.jpg"
+                  src={"/templates/Cambugahay-Falls-8.jpg"}
                   loading="lazy"
                   decoding="async"
                   className="object-cover w-full h-full filter brightness-75 rounded-xl transform transition duration-1000 hover:scale-125"
                 />
               </picture>
               <p className="text-md absolute bottom-4 text-center w-full text-white">
-                Coron
+                Cambugahay Falls
               </p>
             </div>
           </a>
@@ -41,7 +44,7 @@ const DestinationHighlight = () => {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet="/_astro/elnido1.db02297d_1yTGEN.avif 400w,/_astro/elnido1.db02297d_24uou3.avif 800w,/_astro/elnido1.db02297d_1LIdEY.avif 1200w"
+                  srcSet="/_astro/elnido1.db02297d_1yTGEN.avif 400w,/_astro/elnido1.db02297d_24uou3.avif 800w,/templates/siquijor-cantabov-cave.jpg 1200w"
                 />
                 <source
                   type="image/webp"
@@ -60,7 +63,7 @@ const DestinationHighlight = () => {
                 />
               </picture>
               <p className="text-md absolute bottom-4 text-center w-full text-white">
-                El Nido
+                Cantabon Cave
               </p>
             </div>
           </a>
@@ -69,7 +72,7 @@ const DestinationHighlight = () => {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet="/_astro/culion1.eb21e7e2_ZpWh3E.avif 400w,/_astro/culion1.eb21e7e2_4CpKA.avif 800w,/_astro/culion1.eb21e7e2_Z10Qf7Q.avif 1200w"
+                  srcSet="/_astro/culion1.eb21e7e2_ZpWh3E.avif 400w,/_astro/culion1.eb21e7e2_4CpKA.avif 800w,/templates/balete-tree.jpeg 1200w"
                 />
                 <source
                   type="image/webp"
@@ -88,7 +91,7 @@ const DestinationHighlight = () => {
                 />
               </picture>
               <p className="text-md absolute bottom-4 text-center w-full text-white">
-                Culion
+                Old Enchanted Balete Tree
               </p>
             </div>
           </a>
@@ -97,7 +100,7 @@ const DestinationHighlight = () => {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet="/_astro/linapacan1.4f7d599a_Z1rhDYk.avif 400w,/_astro/linapacan1.4f7d599a_ZVGWa5.avif 800w,/_astro/linapacan1.4f7d599a_Z1zqyWq.avif 1200w"
+                  srcSet="/_astro/linapacan1.4f7d599a_Z1rhDYk.avif 400w,/_astro/linapacan1.4f7d599a_ZVGWa5.avif 800w,/templates/Lugnason-Falls.jpg 1200w"
                 />
                 <source
                   type="image/webp"
@@ -116,7 +119,7 @@ const DestinationHighlight = () => {
                 />
               </picture>
               <p className="text-md absolute bottom-4 text-center w-full text-white">
-                Linapacan
+                Lugnason Falls
               </p>
             </div>
           </a>
@@ -125,7 +128,7 @@ const DestinationHighlight = () => {
               <picture>
                 <source
                   type="image/avif"
-                  srcSet="/_astro/magsaysay1.e5c36b0a_2vqCgp.avif 400w,/_astro/magsaysay1.e5c36b0a_Z24aNIh.avif 800w,/_astro/magsaysay1.e5c36b0a_Z2eTX9n.avif 1200w"
+                  srcSet="/_astro/magsaysay1.e5c36b0a_2vqCgp.avif 400w,/_astro/magsaysay1.e5c36b0a_Z24aNIh.avif 800w,/templates/paliton_beach.jpeg 1200w"
                 />
                 <source
                   type="image/webp"
@@ -144,7 +147,7 @@ const DestinationHighlight = () => {
                 />
               </picture>
               <p className="text-md absolute bottom-4 text-center w-full text-white">
-                Magsaysay
+                Paliton Beach
               </p>
             </div>
           </a>

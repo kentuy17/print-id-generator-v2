@@ -109,7 +109,7 @@ const data = {
     },
     {
       name: "Reports",
-      url: "#",
+      url: "/reports",
       icon: PieChart,
       route: "reports",
       roles: ["admin"],

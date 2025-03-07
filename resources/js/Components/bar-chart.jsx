@@ -27,7 +27,7 @@ const chartData = [
 export function BarChartComponent() {
   const chartConfig = {
     visitors: {
-      label: "Visitors",
+      label: "Tourists",
     },
     chrome: {
       label: "September",

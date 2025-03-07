@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\TouristController;
 use Illuminate\Foundation\Application;
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/id-templates', [TemplateController::class, 'index'])->name('id-templates');
         Route::get('/id-template/active', [TemplateController::class, 'getActiveTemplate'])->name('id-template.active');
+
+        Route::get('/reports', [ReportController::class, 'index'])->name('reports');
     });
 });
 

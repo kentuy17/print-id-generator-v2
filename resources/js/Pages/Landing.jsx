@@ -113,10 +113,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         </div>
       </div>
       <SocialLinks />
+      <DestinationHighlight />
       <Events />
       <Announcements />
       <div className="p-8 hidden sm:flex"></div>
-      <DestinationHighlight />
     </>
   );
 }
