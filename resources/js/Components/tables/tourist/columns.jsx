@@ -139,15 +139,40 @@ export const columns = [
       let lastName = row.original.last_name;
       let gender = { M: "boy", F: "girl" }[row.original.gender];
       let name = `${firstName} ${lastName}`;
+      let countryCode = row.original.country.toUpperCase();
+      const customCodes = {
+        Iran: "IR",
+        "United States": "US",
+        "United Kingdom": "GB",
+        Canada: "CA",
+        Australia: "AU",
+        Germany: "DE",
+        France: "FR",
+        Spain: "ES",
+        Italy: "IT",
+        Japan: "JP",
+        China: "CN",
+        Zimbabwe: "ZW",
+      };
+
+      const keys = Object.keys(customCodes);
+      if (keys.includes(row.original.country)) {
+        countryCode = customCodes[row.original.country];
+      }
 
       return (
         <div className="flex space-x-2 ml-4 items-center">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
           <div className={`avatar ${status.toLowerCase()}`}>
-            <Avatar className={`h-10 w-10 border-2 ${getStatusStyle(status)}`}>
+            {/* <Avatar className={`h-10 w-10 border-2 ${getStatusStyle(status)}`}> */}
+            <Avatar className={`h-8 w-8 rounded-lg`}>
               <AvatarImage
                 // src={`/images/${row.original.id}.png`}
-                src={`https://avatar.iran.liara.run/public/${gender}`}
+                // src={`https://avatar.iran.liara.run/public/${gender}`}
+                src={`https://flagsapi.com/${countryCode.slice(
+                  0,
+                  2
+                )}/flat/64.png`}
                 alt="Avatar"
               />
               <AvatarFallback className="font-semi-bold">
@@ -198,6 +223,22 @@ export const columns = [
       return (
         <div className="flex items-center">
           <span>{row.getValue("phone_number")}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "arrival_date",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Arrival Date" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center">
+          <span>{row.getValue("arrival_date")}</span>
         </div>
       );
     },

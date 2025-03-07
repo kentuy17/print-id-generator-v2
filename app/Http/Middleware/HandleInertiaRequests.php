@@ -34,6 +34,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'role' => $request->user() ? $request->user()->getRoleNames() : null,
             ],
             'config' => [
                 'template' => Template::where('is_active', true)->first(),

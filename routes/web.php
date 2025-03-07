@@ -37,8 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tourist/update/{id}', [TouristController::class, 'update'])->name('tourist.update');
     Route::delete('/tourist/delete/{id}', [TouristController::class, 'delete'])->name('tourist.delete');
 
-    Route::get('/id-templates', [TemplateController::class, 'index'])->name('id-templates');
-    Route::get('/id-template/active', [TemplateController::class, 'getActiveTemplate'])->name('id-template.active');
+    //
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('/id-templates', [TemplateController::class, 'index'])->name('id-templates');
+        Route::get('/id-template/active', [TemplateController::class, 'getActiveTemplate'])->name('id-template.active');
+    });
 });
 
 require __DIR__ . '/auth.php';
