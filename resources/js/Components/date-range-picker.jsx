@@ -10,7 +10,7 @@ import { Calendar } from "./ui/calendar";
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-export function CalendarDateRangePicker({ className }) {
+export function CalendarDateRangePicker({ className, disabled }) {
   const [date, setDate] = React.useState({
     from: new Date(),
     to: addDays(new Date(), 20),
@@ -33,6 +33,7 @@ export function CalendarDateRangePicker({ className }) {
               "w-[260px] justify-start text-left font-normal",
               !date && "text-muted-foreground"
             )}
+            disabled={disabled}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {date?.from ? (
