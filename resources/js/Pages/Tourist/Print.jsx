@@ -35,13 +35,13 @@ const testData = {
 };
 
 const nameStyle = {
-  fontFamily: "Brush Script MT",
+  fontFamily: "Brush Script MT, cursive",
   fontOpticalSizing: "auto",
   fontWeight: "400",
   fontStyle: "normal",
-  position: "absolute",
-  top: "285px",
-  left: "50px",
+  // position: "absolute",
+  // top: "285px",
+  // left: "50px",
   color: "#f9f9f9",
   fontSize: "3rem",
   textShadow: "2px 2px black", // rgba(0, 0, 0, 0.25)
@@ -51,9 +51,9 @@ const dateStyle = {
   fontOpticalSizing: "auto",
   fontWeight: "400",
   fontStyle: "normal",
-  position: "absolute",
-  top: "342px",
-  left: "250px",
+  // position: "absolute",
+  // top: "342px",
+  // left: "250px",
   color: "#f9f9f9",
   fontSize: "1rem",
   textShadow: "2px 2px black", // rgba(0, 0, 0, 0.25)
@@ -65,8 +65,26 @@ export function Print({ row }) {
   const [open, setOpen] = useState(false);
   const { config } = usePage().props;
   const { template } = config;
+  const componentRef = useRef(null);
 
-  console.log(template, "globals");
+  // console.log(template, "globals");
+  const handleAfterPrint = useCallback(() => {
+    console.log("`onAfterPrint` called");
+  }, []);
+
+  const handleBeforePrint = useCallback(() => {
+    console.log("`onBeforePrint` called");
+    setOpen(!open);
+    return Promise.resolve();
+  }, []);
+
+  const handlePrint = useReactToPrint({
+    contentRef: componentRef,
+    documentTitle: "AwesomeFileName",
+    onAfterPrint: handleAfterPrint,
+    onBeforePrint: handleBeforePrint,
+    copyShadowRoots: true,
+  });
 
   const displayName = () => {
     return template.filename === "clean_template_1.png" ? "block" : "hidden";
@@ -78,9 +96,6 @@ export function Print({ row }) {
         <div
           role="menuitem"
           className="relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&amp;>svg]:size-4 [&amp;>svg]:shrink-0"
-          tabIndex="-1"
-          data-orientation="vertical"
-          data-radix-collection-item=""
         >
           <a
             href="#"
@@ -94,28 +109,50 @@ export function Print({ row }) {
         </div>
       </DialogTrigger>
       <DialogContent
-        className={`min-w-[${template.width}px] sm:w-full sm:max-w-lg`}
+        style={{ width: "688px", height: "auto" }}
+        className="max-w-full"
       >
         <DialogHeader>
           <DialogTitle>{`${row.original.first_name} ${row.original.last_name}`}</DialogTitle>
           <DialogDescription>ID#: {row.original.id_no}</DialogDescription>
         </DialogHeader>
         <DialogDescription></DialogDescription>
-        <div className={`w-[${template.width}px] flex items-center`}>
+        <div
+          style={{
+            backgroundImage: `url(${window.location.origin}/templates/${template.filename})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            height: 400,
+            width: 640,
+          }}
+          className={`w-[${template.width}px] items-center grid-container`}
+          ref={componentRef}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
           {/* <div className={`w-80 sm:w-full sm:max-w-lg flex items-center`}> */}
-          <span style={nameStyle} className={displayName()}>
+          <span style={nameStyle} className={`item-name ${displayName()}`}>
+            {/* <span style={nameStyle} className={`${displayName()}`}> */}
             {`${row.original.first_name} ${row.original.last_name}`}
           </span>
-          <span style={dateStyle}>{row.original.arrival_date}</span>
-          <img
-            className={`max-h-80vh object-cover`}
+          <span style={dateStyle} className="item-date">
+            {row.original.arrival_date}
+          </span>
+          {/* <span style={dateStyle}>{row.original.arrival_date}</span> */}
+          {/* <img
+            className={`max-h-80vh object-fill min-w-80`}
             src={`${window.location.origin}/templates/${template.filename}`}
             height={template.height}
             width={template.width}
-          />
+          /> */}
         </div>
         <DialogFooter>
-          <Button onClick={() => setOpen(!open)}>Print</Button>
+          <Button onClick={handlePrint}>Print</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

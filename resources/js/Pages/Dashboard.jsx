@@ -17,6 +17,8 @@ export default function Dashboard() {
           Dashboard
         </h2>
       }
+      breadcrumb="Dashboard"
+      subBread=""
     >
       <Head title="Dashboard" />
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">

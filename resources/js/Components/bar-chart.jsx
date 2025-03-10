@@ -27,7 +27,7 @@ const chartData = [
 export function BarChartComponent() {
   const chartConfig = {
     visitors: {
-      label: "Visitors",
+      label: "Tourists",
     },
     chrome: {
       label: "September",
@@ -97,7 +97,7 @@ export function BarChartComponent() {
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing total visitors for the last 5 months
         </div>
       </CardFooter>
     </Card>

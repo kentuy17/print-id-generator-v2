@@ -14,6 +14,7 @@ import {
   Send,
   Settings2,
   SquareTerminal,
+  User,
 } from "lucide-react";
 
 import {
@@ -46,10 +47,13 @@ import {
 } from "@/components/ui/sidebar";
 import { IdCardIcon } from "@radix-ui/react-icons";
 
+// import { usePage } from "@inertiajs/react";
+import { checkIfUserIsAdmin } from "@/lib/utils";
+
 // This is sample data.
 const data = {
   user: {
-    name: "Admin",
+    name: "-----",
     email: localStorage.getItem("email"),
     avatar: "/avatars/shadcn.jpg",
   },
@@ -71,55 +75,52 @@ const data = {
     },
   ],
   navMain: [
-    // {
-    //   title: "Dashboard",
-    //   url: "#",
-    //   icon: SquareTerminal,
-    //   isActive: true,
-    //   items: [
-    //     {
-    //       title: "Overview",
-    //       url: "/dashboard",
-    //     },
-    //     {
-    //       title: "Tourist",
-    //       url: "/tourist",
-    //     },
-    //     {
-    //       title: "Settings",
-    //       url: "#",
-    //     },
-    //   ],
-    // },
-    { name: "Dashboard", url: "/dashboard", icon: Layers, route: "dashboard" },
+    {
+      name: "Dashboard",
+      url: "/dashboard",
+      icon: Layers,
+      route: "dashboard",
+      roles: ["admin", "operator"],
+    },
     {
       name: "Tourists",
       url: "/tourists",
       icon: BookOpen,
       subCategories: [
-        { title: "View all Tourists", url: "/tourists", route: "tourist" },
+        {
+          title: "View all Tourists",
+          url: "/tourists",
+          route: "tourist",
+        },
         {
           title: "Add Tourist",
           url: "/tourist/create",
           route: "tourist.create",
         },
       ],
+      roles: ["admin", "operator"],
     },
-    // { name: "Notifications", url: "/notifications", icon: Bell },
-    { name: "Navigation", url: "#", icon: Menu, route: "navigation" },
-    { name: "Appearance", url: "#", icon: Paintbrush, route: "appearance" },
-    // { name: "Messages & media", url: "#", icon: MessageCircle },
-    // { name: "Language & region", url: "#", icon: Globe },
-    // { name: "Accessibility", url: "#", icon: Keyboard },
-    // { name: "Mark as read", url: "#", icon: Check },
     {
       name: "ID Template",
       url: "/id-templates",
       icon: IdCardIcon,
       route: "id-templates",
+      roles: ["admin"],
     },
-    // { name: "Connected accounts", url: "#", icon: Link },
-    // { name: "Privacy & visibility", url: "/profile", icon: Lock },
+    {
+      name: "Reports",
+      url: "/reports",
+      icon: PieChart,
+      route: "reports",
+      roles: ["admin"],
+    },
+    {
+      name: "Appearance",
+      url: "#",
+      icon: Paintbrush,
+      route: "appearance",
+      roles: ["admin", "operator"],
+    },
     {
       name: "Profile Settings",
       url: "/profile",
@@ -191,18 +192,50 @@ const data = {
     //     },
     //   ],
     // },
+    // {
+    //   title: "Dashboard",
+    //   url: "#",
+    //   icon: SquareTerminal,
+    //   isActive: true,
+    //   items: [
+    //     {
+    //       title: "Overview",
+    //       url: "/dashboard",
+    //     },
+    //     {
+    //       title: "Tourist",
+    //       url: "/tourist",
+    //     },
+    //     {
+    //       title: "Settings",
+    //       url: "#",
+    //     },
+    //   ],
+    // },
+    // { name: "Connected accounts", url: "#", icon: Link },
+    // { name: "Privacy & visibility", url: "/profile", icon: Lock },
+    // { name: "Messages & media", url: "#", icon: MessageCircle },
+    // { name: "Language & region", url: "#", icon: Globe },
+    // { name: "Accessibility", url: "#", icon: Keyboard },
+    // { name: "Mark as read", url: "#", icon: Check },
+    // { name: "Notifications", url: "/notifications", icon: Bell },
   ],
   projects: [
+    {
+      name: "User Accounts",
+      url: "/user-accounts",
+      icon: User,
+    },
     {
       name: "Design Engineering",
       url: "#",
       icon: Frame,
     },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
+    // {
+    //   name: "Sales & Marketing",
+    //   url: "#",
+    //   icon: PieChart,
+    // },
     {
       name: "Travel",
       url: "#",
@@ -244,7 +277,7 @@ export function AppSidebar({ ...props }) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {checkIfUserIsAdmin() && <NavProjects projects={data.projects} />}
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       {/* <SidebarFooter>

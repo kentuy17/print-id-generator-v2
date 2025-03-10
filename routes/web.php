@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\TouristController;
 use Illuminate\Foundation\Application;
@@ -37,8 +38,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tourist/update/{id}', [TouristController::class, 'update'])->name('tourist.update');
     Route::delete('/tourist/delete/{id}', [TouristController::class, 'delete'])->name('tourist.delete');
 
-    Route::get('/id-templates', [TemplateController::class, 'index'])->name('id-templates');
-    Route::get('/id-template/active', [TemplateController::class, 'getActiveTemplate'])->name('id-template.active');
+    //
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('/id-templates', [TemplateController::class, 'index'])->name('id-templates');
+        Route::get('/id-template/active', [TemplateController::class, 'getActiveTemplate'])->name('id-template.active');
+
+        Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+    });
 });
 
 require __DIR__ . '/auth.php';
