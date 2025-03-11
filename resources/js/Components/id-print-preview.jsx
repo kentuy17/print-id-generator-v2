@@ -36,7 +36,7 @@ export const IdPrintPreview = ({ data, children, template }) => {
   const name = `${data.first_name} ${data.last_name}`;
   const arrivalDate = data.arrival_date;
 
-  const dimentions = () => {
+  const dimensions = () => {
     if (template.orientation === "portrait") {
       return { width: 480, height: 640 };
     } else {
@@ -60,15 +60,15 @@ export const IdPrintPreview = ({ data, children, template }) => {
           <DialogTitle>Preview</DialogTitle>
         </DialogHeader>
         <DialogDescription></DialogDescription>
-        <div className={`w-[${dimentions().width}px] flex items-center`}>
+        <div className={`w-[960px] flex items-center`}>
           <span style={nameStyle} className={displayName()}>
             Kenneth Camacho
           </span>
           <img
             className={`max-h-80vh object-cover`}
             src={`${window.location.origin}/templates/${template.filename}`}
-            height={dimentions().height}
-            width={dimentions().width}
+            height={720}
+            width={960}
           />
         </div>
         <DialogFooter className="sm:justify-end">

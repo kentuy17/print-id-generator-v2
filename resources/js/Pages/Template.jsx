@@ -2,6 +2,7 @@ import { PrintBasic } from "@/Components/PrintBasic";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { Separator } from "@radix-ui/react-select";
+import { Button } from "@/Components/ui/button";
 
 export default function Template({ data }) {
   console.log(data);
@@ -13,8 +14,8 @@ export default function Template({ data }) {
           Template
         </h2>
       }
-      breadcrumb='ID Template'
-      subBread=''
+      breadcrumb="ID Template"
+      subBread=""
     >
       <Head title="Template" />
 

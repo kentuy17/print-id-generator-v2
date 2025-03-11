@@ -1,7 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
 /* @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap'); */
+@import 'tailwindcss';
+
+@config "../../tailwind.config.js";
+/* @plugin 'tailwindcss-animate'; */
+/* @source "../views"; */
+/* @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php'; */
+
 
 @layer base {
     :root {

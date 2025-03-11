@@ -79,7 +79,7 @@ export function NavMain({ items }) {
                   ) : null}
                 </SidebarMenuItem>
               </Collapsible>
-            )
+            ),
         )}
       </SidebarMenu>
     </SidebarGroup>

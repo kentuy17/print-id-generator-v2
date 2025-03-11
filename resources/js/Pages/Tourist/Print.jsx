@@ -50,7 +50,7 @@ const nameStyle = {
 const dateStyle = {
   fontOpticalSizing: "auto",
   fontWeight: "400",
-  fontStyle: "normal",
+  // fontStyle: "normal",
   // position: "absolute",
   // top: "342px",
   // left: "250px",
@@ -90,6 +90,10 @@ export function Print({ row }) {
     return template.filename === "clean_template_1.png" ? "block" : "hidden";
   };
 
+  const templateClass = () => `w-[960px] items-center grid-container`;
+
+  console.log(templateClass, "templateClass");
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -126,7 +130,7 @@ export function Print({ row }) {
             height: 400,
             width: 640,
           }}
-          className={`w-[${template.width}px] items-center grid-container`}
+          className={"w-[960px] items-center grid-container"}
           ref={componentRef}
         >
           <span></span>
@@ -135,21 +139,12 @@ export function Print({ row }) {
           <span></span>
           <span></span>
           <span></span>
-          {/* <div className={`w-80 sm:w-full sm:max-w-lg flex items-center`}> */}
           <span style={nameStyle} className={`item-name ${displayName()}`}>
-            {/* <span style={nameStyle} className={`${displayName()}`}> */}
             {`${row.original.first_name} ${row.original.last_name}`}
           </span>
           <span style={dateStyle} className="item-date">
             {row.original.arrival_date}
           </span>
-          {/* <span style={dateStyle}>{row.original.arrival_date}</span> */}
-          {/* <img
-            className={`max-h-80vh object-fill min-w-80`}
-            src={`${window.location.origin}/templates/${template.filename}`}
-            height={template.height}
-            width={template.width}
-          /> */}
         </div>
         <DialogFooter>
           <Button onClick={handlePrint}>Print</Button>
