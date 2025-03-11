@@ -58,7 +58,7 @@ const dateStyle = {
   fontSize: "1rem",
   textShadow: "2px 2px black", // rgba(0, 0, 0, 0.25)
   display: "block",
-  fontStyle: "italic",
+  // fontStyle: "italic",
 };
 
 export function Print({ row }) {
