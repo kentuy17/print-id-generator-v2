@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tourist/show/{id}', [TouristController::class, 'getItemById'])->name('tourist.show'); // display data
     Route::patch('/tourist/update/{id}', [TouristController::class, 'update'])->name('tourist.update');
     Route::delete('/tourist/delete/{id}', [TouristController::class, 'delete'])->name('tourist.delete');
+    Route::get('/tourist/export', [TouristController::class, 'export'])->name('tourist.export');
 
     //
     Route::group(['middleware' => ['role:admin']], function () {

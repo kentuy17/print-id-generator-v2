@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TouristsExport;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Tourist;
 use Carbon\Carbon;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TouristController extends Controller
 {
@@ -96,5 +98,10 @@ class TouristController extends Controller
         $tourist = Tourist::find($id);
         $tourist->delete();
         return Redirect::route('tourist');
+    }
+
+    public function export()
+    {
+        return Excel::download(new TouristsExport, 'tourist.xlsx');
     }
 }

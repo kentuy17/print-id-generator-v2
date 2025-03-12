@@ -1,5 +1,4 @@
 import { CalendarDateRangePicker } from "@/Components/date-range-picker";
-// import { PrintBasic } from "@/Components/PrintBasic";
 import { columns } from "@/Components/tables/reports/columns";
 import { DataTable } from "@/Components/tables/reports/data-table";
 import { Button } from "@/Components/ui/button";
@@ -10,24 +9,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/Components/ui/select";
+import { useStateContext } from "@/context/ContextProvider";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import { Separator } from "@radix-ui/react-select";
 import { useEffect, useState } from "react";
 
 export default function Report({ reports }) {
   console.log(reports);
   const [selected, setSelected] = useState("day");
   const [disabled, setDisabled] = useState(false);
+  const { reportDate, setReportDate } = useStateContext();
 
-  const handleSelectChange = (val) => {
-    // handle select change
-    setSelected(val);
-  };
+  const handleSelectChange = (val) => setSelected(val);
 
   useEffect(() => {
     setDisabled(selected !== "day");
   }, [selected]);
+
+  useEffect(() => {
+    console.log(reportDate);
+  }, [reportDate]);
 
   return (
     <AuthenticatedLayout
@@ -58,7 +59,10 @@ export default function Report({ reports }) {
             </Select>
           </div>
           <div className="flex items-center space-x-2">
-            <CalendarDateRangePicker disabled={disabled} />
+            <CalendarDateRangePicker
+              disabled={disabled}
+              setReportDate={setReportDate}
+            />
             <Button>Download</Button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 // import { newDate } from "@/assets/utils";
 import { DateTime } from "luxon";
 import moment from "moment";
@@ -6,6 +6,8 @@ import moment from "moment";
 const StateContext = createContext({
   date: moment(),
   setDate: () => {},
+  reportDate: {},
+  setReportDate: () => {},
 });
 
 const newDate = (days) => {
@@ -14,17 +16,21 @@ const newDate = (days) => {
 
 export const ContextProvider = ({ children }) => {
   const [date, setDate] = useState(newDate());
-  // const [employeeId, setEmployeeId] = useState(0);
 
-  // useEffect(() => {
-  //   console.log(date, "contextprovider");
-  // }, [date]);
+  const dateRange = {
+    dateFrom: moment().format("MMM D, YYYY"), // e.g., "Mar 12, 2025"
+    dateTo: moment().add(7, "days").format("MMM D, YYYY"), // e.g., "Mar 19, 2025"
+  };
+
+  const [reportDate, setReportDate] = useState(dateRange);
 
   return (
     <StateContext.Provider
       value={{
         date,
         setDate,
+        reportDate,
+        setReportDate,
       }}
     >
       {children}
