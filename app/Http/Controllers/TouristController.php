@@ -100,8 +100,8 @@ class TouristController extends Controller
         return Redirect::route('tourist');
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new TouristsExport, 'tourist.xlsx');
+        return Excel::download(new TouristsExport($request), 'tourist.xlsx');
     }
 }

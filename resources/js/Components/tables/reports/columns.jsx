@@ -7,7 +7,7 @@ import axios from "axios";
 
 export const columns = [
   {
-    accessorKey: "arrival_date",
+    accessorKey: "filter_date",
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
@@ -16,7 +16,7 @@ export const columns = [
       />
     ),
     cell: ({ row }) => (
-      <div className="min-w-[80px] pl-3">{row.getValue("arrival_date")}</div>
+      <div className="min-w-[80px] pl-3">{row.getValue("filter_date")}</div>
     ),
     enableSorting: true,
     enableHiding: true,

@@ -12,15 +12,45 @@ import {
 import { useStateContext } from "@/context/ContextProvider";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import axios from "axios";
+import { DownloadIcon, Search } from "lucide-react";
+import moment from "moment";
 import { useEffect, useState } from "react";
+import { router } from "@inertiajs/react";
 
 export default function Report({ reports }) {
-  console.log(reports);
   const [selected, setSelected] = useState("day");
   const [disabled, setDisabled] = useState(false);
   const { reportDate, setReportDate } = useStateContext();
+  const [filteredReports, setFilteredReports] = useState(reports);
 
   const handleSelectChange = (val) => setSelected(val);
+
+  const handleSearch = () => {
+    axios
+      .get(
+        route("report.search", {
+          start_date: moment(reportDate.from).format("YYYY-MM-DD"),
+          end_date: moment(reportDate.to).format("YYYY-MM-DD"),
+          filter_by: selected,
+        })
+      )
+      .then((resp) => {
+        console.log(resp);
+
+        setFilteredReports(resp.data);
+      });
+  };
+
+  const handleDownload = () => {
+    // TODO: Implement download functionality
+    console.log("Download");
+    router.get("/report/export", {
+      start_date: moment(reportDate.from).format("YYYY-MM-DD"),
+      end_date: moment(reportDate.to).format("YYYY-MM-DD"),
+      filter_by: selected,
+    });
+  };
 
   useEffect(() => {
     setDisabled(selected !== "day");
@@ -63,12 +93,22 @@ export default function Report({ reports }) {
               disabled={disabled}
               setReportDate={setReportDate}
             />
-            <Button>Download</Button>
+            <Button size="icon" onClick={() => handleSearch()}>
+              <Search />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => handleDownload()}
+              disabled={true}
+            >
+              <DownloadIcon />
+            </Button>
           </div>
         </div>
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-1">
           <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-            <DataTable data={reports} columns={columns} />
+            <DataTable data={filteredReports} columns={columns} />
           </div>
         </div>
       </div>

@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/id-template/active', [TemplateController::class, 'getActiveTemplate'])->name('id-template.active');
 
         Route::get('/reports', [ReportController::class, 'index'])->name('reports');
+        Route::get('/report/export', [ReportController::class, 'export'])->name('report.export');
+        Route::get('/report/search', [ReportController::class, 'search'])->name('report.search');
     });
 });
 
