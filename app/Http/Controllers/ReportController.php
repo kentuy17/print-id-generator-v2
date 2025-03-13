@@ -23,6 +23,11 @@ class ReportController extends Controller
             ->orderBy('arrival_date', 'desc')
             ->get();
 
+        $reports->transform(function ($report) {
+            $report->filter_date = $report->arrival_date;
+            return $report;
+        });
+
         return Inertia::render('Report', [
             'reports' => $reports
         ]);
