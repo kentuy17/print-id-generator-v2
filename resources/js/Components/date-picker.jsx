@@ -21,16 +21,9 @@ export function DatePicker({ className }) {
   const btnRef = React.useRef(null);
 
   const handleDateChange = (newDate) => {
-    // console.log(newDate);
-
     setDate(newDate);
     btnRef.current.click();
   };
-
-  // React.useEffect(() => {
-  //   // console.log(format(date, "yyyy-MM-dd"));
-  //   console.log(moment(date).format("ll"));
-  // }, [date]);
 
   return (
     // <></>

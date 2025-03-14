@@ -102,11 +102,11 @@ export default function Create() {
           Tourist
         </h2>
       }
-      breadcrumb='Tourist'
-      subBread='Add'
+      breadcrumb="Tourist"
+      subBread="Add"
     >
       <Head title="Add Tourist" />
-      <div className="py-12">
+      <div className="py-4">
         <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
           <Card className="max-w">
             <CardHeader>
