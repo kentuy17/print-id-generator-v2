@@ -1,1 +1,0 @@
-import{j as s}from"./app-vpnr3FP-.js";function m({children:e}){return s.jsx("div",{className:"flex min-h-svh w-full items-center justify-center p-6 md:p-10",children:s.jsx("div",{className:"w-full max-w-sm",children:e})})}export{m as G};
