@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TemplateController;
@@ -8,14 +10,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Landing', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [GuestController::class, 'landing'])->name('landing');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -38,6 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tourist/update/{id}', [TouristController::class, 'update'])->name('tourist.update');
     Route::delete('/tourist/delete/{id}', [TouristController::class, 'delete'])->name('tourist.delete');
     Route::get('/tourist/export', [TouristController::class, 'export'])->name('tourist.export');
+
+    Route::get('/events', [EventController::class, 'index'])->name('events');
+    Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
+    Route::post('/event/store', [EventController::class, 'store'])->name('event.store');
+    Route::delete('/event/delete/{id}', [EventController::class, 'delete'])->name('event.delete');
 
     //
     Route::group(['middleware' => ['role:admin']], function () {

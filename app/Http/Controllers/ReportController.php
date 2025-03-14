@@ -23,6 +23,11 @@ class ReportController extends Controller
             ->orderBy('arrival_date', 'desc')
             ->get();
 
+        $reports->transform(function ($report) {
+            $report->filter_date = Carbon::parse($report->arrival_date)->format('M j, Y');
+            return $report;
+        });
+
         return Inertia::render('Report', [
             'reports' => $reports
         ]);
@@ -40,7 +45,7 @@ class ReportController extends Controller
         $startDate = Carbon::now()->setISODate($year, $week)->startOfWeek();
         $endDate = $startDate->copy()->endOfWeek();
 
-        return $startDate->format('F j') . ' - ' . $endDate->format('F j, Y');
+        return $startDate->format('M j') . ' - ' . $endDate->format('M j, Y');
     }
 
     public function search(Request $request): JsonResponse
