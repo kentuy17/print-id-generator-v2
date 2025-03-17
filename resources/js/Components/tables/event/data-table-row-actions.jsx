@@ -41,7 +41,7 @@ export function DataTableRowActions({ row }) {
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link
-            href={route("tourist.edit", row.original.id)}
+            href={route("event.edit", row.original.id)}
             className="flex space-between w-full items-center"
           >
             Edit{" "}

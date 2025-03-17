@@ -64,4 +64,11 @@ class EventController extends Controller
         $event->delete();
         return Redirect::route('events');
     }
+
+    public function edit($id): Response
+    {
+        return Inertia::render('Event/Edit', [
+            'event' => Event::find($id),
+        ]);
+    }
 }
