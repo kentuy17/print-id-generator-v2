@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/event/create', [EventController::class, 'create'])->name('event.create');
     Route::post('/event/store', [EventController::class, 'store'])->name('event.store');
     Route::delete('/event/delete/{id}', [EventController::class, 'delete'])->name('event.delete');
+    Route::get('/event/edit/{id}', [EventController::class, 'edit'])->name('event.edit'); // display form
+    Route::post('/event/update', [EventController::class, 'update'])->name('event.update');
 
     //
     Route::group(['middleware' => ['role:admin']], function () {

@@ -20,7 +20,7 @@ const Index = ({ events }) => {
     >
       <Head title="Events" />
 
-      <div className="py-12">
+      <div className="py-4">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
             <DataTable data={events} columns={columns} />

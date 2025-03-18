@@ -17,12 +17,40 @@ import { DownloadIcon, Search } from "lucide-react";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { router } from "@inertiajs/react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/Components/ui/tabs";
+
+const FILTERS = {
+  arrival: {
+    nationality: "Nationality",
+    day: "Day",
+    week: "Week",
+    month: "Month",
+    year: "Year",
+  },
+  tourist: {
+    nationality: "Nationality",
+    day: "Day",
+    week: "Week",
+    month: "Month",
+    year: "Year",
+  },
+  printed: {
+    day: "Day",
+    week: "Week",
+    month: "Month",
+    year: "Year",
+  },
+};
 
 export default function Report({ reports }) {
   const [selected, setSelected] = useState("day");
   const [disabled, setDisabled] = useState(false);
-  const { reportDate, setReportDate } = useStateContext();
   const [filteredReports, setFilteredReports] = useState(reports);
+  const [reportSelected, setReportSelected] = useState("arrival");
+
+  const { reportDate, setReportDate } = useStateContext();
+
+  const handleReportChange = (val) => setReportSelected(val);
 
   const handleSelectChange = (val) => setSelected(val);
 
@@ -33,6 +61,7 @@ export default function Report({ reports }) {
           start_date: moment(reportDate.from).format("YYYY-MM-DD"),
           end_date: moment(reportDate.to).format("YYYY-MM-DD"),
           filter_by: selected,
+          module: reportSelected,
         })
       )
       .then((resp) => {
@@ -56,9 +85,9 @@ export default function Report({ reports }) {
     setDisabled(selected !== "day");
   }, [selected]);
 
-  useEffect(() => {
-    console.log(reportDate);
-  }, [reportDate]);
+  // useEffect(() => {
+  //   console.log(reportDate);
+  // }, [reportDate]);
 
   return (
     <AuthenticatedLayout
@@ -71,7 +100,6 @@ export default function Report({ reports }) {
       subBread="Extract data"
     >
       <Head title="Reports" />
-
       <div className="flex-1 space-y-4 p-8 pt-6">
         <div className="flex items-center justify-between lg:px-6">
           <div className="flex items-center space-x-2">
@@ -80,12 +108,7 @@ export default function Report({ reports }) {
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Filter by" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="day">Day</SelectItem>
-                <SelectItem value="week">Week</SelectItem>
-                <SelectItem value="month">Month</SelectItem>
-                <SelectItem value="year">Year</SelectItem>
-              </SelectContent>
+              <CustomFilters reportSelected={reportSelected} />
             </Select>
           </div>
           <div className="flex items-center space-x-2">
@@ -107,11 +130,56 @@ export default function Report({ reports }) {
           </div>
         </div>
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-1">
-          <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-            <DataTable data={filteredReports} columns={columns} />
-          </div>
+          <Tabs
+            onValueChange={handleReportChange}
+            defaultValue="arrival"
+            className="space-y-4"
+          >
+            <CustomTabsList reportSelected={reportSelected} />
+            <TabsContent value="arrival">
+              <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                <DataTable data={filteredReports} columns={columns} />
+              </div>
+            </TabsContent>
+            <TabsContent value="printed">Reports for printed IDs</TabsContent>
+            <TabsContent value="tourist">
+              <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
+                Tourists
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </AuthenticatedLayout>
   );
 }
+
+export const CustomTabsList = () => {
+  return (
+    <TabsList>
+      {FILTERS &&
+        Object.keys(FILTERS).map((item) => {
+          return (
+            <TabsTrigger key={item} value={item}>
+              {item}
+            </TabsTrigger>
+          );
+        })}
+    </TabsList>
+  );
+};
+
+export const CustomFilters = ({ reportSelected }) => {
+  return (
+    <SelectContent>
+      {FILTERS &&
+        Object.keys(FILTERS[reportSelected]).map((item) => {
+          return (
+            <SelectItem key={item} value={item}>
+              {FILTERS[reportSelected][item]}
+            </SelectItem>
+          );
+        })}
+    </SelectContent>
+  );
+};

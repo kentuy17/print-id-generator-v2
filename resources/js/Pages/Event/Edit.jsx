@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,103 +20,87 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { newEventSchema } from "@/validators/add";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { forwardRef, useState } from "react";
+import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+// import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { DatePicker } from "@/Components/date-picker";
 import moment from "moment";
 import { useStateContext } from "@/context/ContextProvider";
 import { useForm as inertiaForm } from "@inertiajs/react";
 import { Textarea } from "@/Components/ui/textarea";
 
-export default function Create() {
+export default function Edit({ event }) {
   // const { toast } = useToast();
-  // const [formStep, setFormStep] = React.useState(0);
-  const formStep = 0;
+  const [formStep, setFormStep] = React.useState(0);
+  const [preview, setPreview] = React.useState(null);
+  const [image, setImage] = React.useState(null);
+  const [isNewImg, setIsNewImg] = React.useState(false);
 
-  const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const { date } = useStateContext();
 
   let formInitVals = {
-    eventName: "",
-    details: "",
-    location: "",
+    id: event.id,
+    eventName: event.name,
+    details: event.description,
+    location: event.location,
     eventDate: moment(),
-    contact_number: "",
-    image: "",
+    contact_number: event.contact_number,
+    image: null,
   };
 
-  const { post, data } = inertiaForm(formInitVals);
   const form = useForm({
     resolver: zodResolver(newEventSchema),
     defaultValues: formInitVals,
   });
 
-  const { date } = useStateContext();
-
-  function onSubmit() {
-    let formVals = form.getValues();
-    formVals.arrivalDate = moment(date).format("YYYY-MM-DD");
-    formVals.image = image;
-    let keys = Object.keys(data);
-    keys.forEach((key) => {
-      data[key] = formVals[key];
-    });
-
-    post(route("event.store"), {
-      onSuccess: (data) => {
-        // toast({
-        //   title: "Tourist Added",
-        //   description: "Tourist Added Successfully",
-        //   status: "success",
-        //   duration: 9000,
-        //   isClosable: true,
-        // });
-        console.log(data);
-      },
-    });
-  }
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    setIsNewImg(true);
     if (file) {
       setImage(file);
       setPreview(URL.createObjectURL(file));
     }
   };
 
+  const onSubmit = (values) => {
+    const formVals = form.getValues();
+    const formData = new FormData();
+    formData.append("id", event.id);
+    formData.append("eventName", values.eventName);
+    formData.append("details", values.details);
+    formData.append("location", values.location);
+    formData.append("eventDate", moment(date).format("YYYY-MM-DD"));
+    formData.append("contact_number", formVals.contact_number);
+    formData.append("image", image);
+
+    router.post(route("event.update"), formData);
+  };
+
   return (
     <AuthenticatedLayout
       header={
         <h2 className="text-xl font-semibold leading-tight text-gray-800">
-          Event
+          Edit Event
         </h2>
       }
-      breadcrumb="Tourist"
-      subBread="Add"
+      breadcrumb="Event"
+      subBread="Edit"
     >
-      <Head title="Add Tourist" />
+      <Head title="Edit Event" />
       <div className="py-4">
         <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
           <Card className="max-w">
             <CardHeader>
-              <CardTitle>Add Event</CardTitle>
-              <CardDescription>Enter event details</CardDescription>
+              <CardTitle>Edit Event</CardTitle>
+              <CardDescription>Edit the details of the event.</CardDescription>
             </CardHeader>
             <CardContent>
               <Form {...form}>
@@ -142,9 +126,6 @@ export default function Create() {
                           <FormControl>
                             <Input placeholder="Enter event..." {...field} />
                           </FormControl>
-                          {/* <FormDescription>
-                          This is your public display name.
-                        </FormDescription> */}
                           <FormMessage />
                         </FormItem>
                       )}
@@ -189,7 +170,15 @@ export default function Create() {
                               onChange={handleFileChange}
                             />
                           </FormControl>
-                          {preview && (
+                          {!isNewImg ? (
+                            <FormDescription>
+                              <img
+                                src={`/images/${event.image}`}
+                                alt="Preview"
+                                width="200"
+                              />
+                            </FormDescription>
+                          ) : (
                             <FormDescription>
                               <img src={preview} alt="Preview" width="200" />
                             </FormDescription>
@@ -245,14 +234,22 @@ export default function Create() {
                               {...field}
                             />
                           </FormControl>
+                          <FormDescription>
+                            Person to contact for more information
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
                   </motion.div>
-
                   <div className="flex gap-2">
-                    <Button type="submit">Submit</Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => window.history.back()}
+                    >
+                      Back
+                    </Button>
+                    <Button type="submit">Save</Button>
                   </div>
                 </form>
               </Form>
@@ -261,19 +258,5 @@ export default function Create() {
         </div>
       </div>
     </AuthenticatedLayout>
-  );
-}
-
-function InputFile({ ...props }) {
-  return (
-    <div
-      className={cn(
-        "grid w-full max-w-sm items-center gap-1.5",
-        props.className
-      )}
-    >
-      <Label htmlFor="picture">Picture</Label>
-      <Input id="picture" type="file" />
-    </div>
   );
 }

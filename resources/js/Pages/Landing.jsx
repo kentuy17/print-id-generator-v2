@@ -30,6 +30,7 @@ export default function Welcome({ events, canLogin, canRegister }) {
                     width="1920"
                     height="1080"
                     src="/assets/siquijor-tourist-guide-logo-500px.png"
+                    // src="/assets/siquijor tourist guide logo - 500px.jpg"
                     loading="lazy"
                     decoding="async"
                   />

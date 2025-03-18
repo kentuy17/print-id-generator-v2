@@ -110,12 +110,12 @@ export default function Edit({ tourist }) {
         </h2>
       }
     >
-      <Head title="Add Tourist" />
+      <Head title="Edit Tourist" />
       <div className="py-12">
         <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
           <Card className="max-w">
             <CardHeader>
-              <CardTitle>Add Tourist</CardTitle>
+              <CardTitle>Edit Tourist</CardTitle>
               <CardDescription>
                 Please fill-up form with accurate data.
               </CardDescription>

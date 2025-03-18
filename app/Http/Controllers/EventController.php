@@ -64,4 +64,35 @@ class EventController extends Controller
         $event->delete();
         return Redirect::route('events');
     }
+
+    public function edit($id): Response
+    {
+        return Inertia::render('Event/Edit', [
+            'event' => Event::find($id),
+        ]);
+    }
+
+    public function update(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+        }
+
+        $event = Event::find($request->id);
+        $event->name = $request->eventName;
+        $event->description = $request->details;
+        $event->location = $request->location;
+        $event->date = $request->eventDate;
+        $event->time = $request->time ?? '00:00:00';
+        $event->contact_number = $request->contact_number ?? null;
+        $event->image = $imageName ?? null;
+        $event->save();
+
+        return Redirect::route('events');
+    }
 }
