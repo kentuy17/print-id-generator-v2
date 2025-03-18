@@ -181,10 +181,6 @@ export default function Create() {
                         <FormItem>
                           <FormLabel>Picture</FormLabel>
                           <FormControl>
-                            {/* <Input
-                              placeholder="Enter Location to held..."
-                              {...field}
-                            /> */}
                             <Input
                               id="picture"
                               type="file"

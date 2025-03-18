@@ -17,9 +17,8 @@ import {
   // ViewIcon,
 } from "lucide-react";
 import { Link } from "@inertiajs/react";
-import { ViewTouristDialog } from "@/Pages/Tourist/View";
-import { Print } from "@/Pages/Tourist/Print";
 import { DeleteDialog } from "@/Pages/Event/Delete";
+import { ViewEventDialog } from "@/Pages/Event/View";
 // import { PrintButton } from "@/Components/print-button";
 
 export function DataTableRowActions({ row }) {
@@ -37,7 +36,7 @@ export function DataTableRowActions({ row }) {
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <ViewTouristDialog row={row} />
+          <ViewEventDialog row={row} />
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Link

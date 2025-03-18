@@ -15,6 +15,22 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ReportController extends Controller
 {
+    private $start_date;
+    private $end_date;
+    private $group_by;
+    private $start_of_year;
+    private $end_of_year;
+
+    public function __construct()
+    {
+        $this->start_of_year = date('Y-01-01');
+        $this->end_of_year = date('Y-12-31');
+    }
+    // $start_date = $request->start_date;
+    // $end_date = $request->end_date;
+    // $group_by = $request->filter_by;
+    // $start_of_year = date('Y-01-01');
+    // $end_of_year = date('Y-12-31');
     //
     public function index(): Response
     {
@@ -50,21 +66,39 @@ class ReportController extends Controller
 
     public function search(Request $request): JsonResponse
     {
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
-        $group_by = $request->filter_by;
-        $start_of_year = date('Y-01-01');
-        $end_of_year = date('Y-12-31');
+        $this->start_date = $request->start_date;
+        $this->end_date = $request->end_date;
+        $this->group_by = $request->filter_by;
+        $module = $request->module;
 
-        if ($group_by == 'day') {
-            $reports = Tourist::select('arrival_date as filter_date', DB::raw('COUNT(*) as total'))
-                ->whereBetween('arrival_date', [$start_date, $end_date])
-                ->groupBy('filter_date')
-                ->orderBy('filter_date', 'desc')
-                ->get();
+        if ($module == 'arrival') {
+            $reports = $this->getArrivalReport();
         }
 
-        if ($group_by == 'week') {
+        if ($module == 'tourist') {
+            $reports = $this->getTouristReport();
+        }
+
+        if ($module === 'printed') {
+            $reports = $this->getPrintedReport();
+        }
+
+        return response()->json($reports);
+    }
+
+    private function getArrivalReport()
+    {
+        if ($this)
+
+            if ($this->group_by === 'day') {
+                $reports = Tourist::select('arrival_date as filter_date', DB::raw('COUNT(*) as total'))
+                    ->whereBetween('arrival_date', [$start_date, $end_date])
+                    ->groupBy('filter_date')
+                    ->orderBy('filter_date', 'desc')
+                    ->get();
+            }
+
+        if ($this->group_by === 'week') {
             $reports = Tourist::select(
                 DB::raw('WEEK(arrival_date) as week'),
                 DB::raw('YEAR(arrival_date) as year'),
@@ -81,7 +115,7 @@ class ReportController extends Controller
             });
         }
 
-        if ($group_by == 'month') {
+        if ($this->group_by === 'month') {
             $reports = Tourist::select(DB::raw('MONTH(arrival_date) as filter_date, COUNT(*) as total'))
                 ->whereBetween('arrival_date', [$start_of_year, $end_of_year])
                 ->groupBy('filter_date')
@@ -96,7 +130,7 @@ class ReportController extends Controller
             });
         }
 
-        if ($group_by == 'year') {
+        if ($this->group_by === 'year') {
             $reports = Tourist::select(DB::raw('YEAR(arrival_date) as filter_date, COUNT(*) as total'))
                 ->whereBetween('arrival_date', [$start_of_year, $end_of_year])
                 ->groupBy('filter_date')
@@ -104,8 +138,12 @@ class ReportController extends Controller
                 ->get();
         }
 
-        return response()->json($reports);
+        return $reports;
     }
+
+    private function getTouristReport() {}
+
+    private function getPrintedReport() {}
 
     public function export(Request $request)
     {

@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +23,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { registerSchema } from "@/validators/add";
+import { newEventSchema } from "@/validators/add";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect } from "react";
@@ -41,7 +41,10 @@ export default function Edit({ event }) {
   // const { toast } = useToast();
   const [formStep, setFormStep] = React.useState(0);
   const [preview, setPreview] = React.useState(null);
-  const [image, setImage] = React.useState(event.image);
+  const [image, setImage] = React.useState(null);
+  const [isNewImg, setIsNewImg] = React.useState(false);
+
+  const { date } = useStateContext();
 
   let formInitVals = {
     id: event.id,
@@ -53,14 +56,14 @@ export default function Edit({ event }) {
     image: null,
   };
 
-  const { data, patch } = inertiaForm(formInitVals);
   const form = useForm({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(newEventSchema),
     defaultValues: formInitVals,
   });
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    setIsNewImg(true);
     if (file) {
       setImage(file);
       setPreview(URL.createObjectURL(file));
@@ -68,17 +71,17 @@ export default function Edit({ event }) {
   };
 
   const onSubmit = (values) => {
-    console.log("otin");
-
+    const formVals = form.getValues();
     const formData = new FormData();
-    formData.append("id", values.id);
+    formData.append("id", event.id);
     formData.append("eventName", values.eventName);
     formData.append("details", values.details);
     formData.append("location", values.location);
-    formData.append("eventDate", values.eventDate);
-    formData.append("contact_number", values.contact_number);
+    formData.append("eventDate", moment(date).format("YYYY-MM-DD"));
+    formData.append("contact_number", formVals.contact_number);
+    formData.append("image", image);
 
-    console.log(formData);
+    router.post(route("event.update"), formData);
   };
 
   return (
@@ -88,16 +91,16 @@ export default function Edit({ event }) {
           Edit Event
         </h2>
       }
+      breadcrumb="Event"
+      subBread="Edit"
     >
-      <Head title="Add Tourist" />
+      <Head title="Edit Event" />
       <div className="py-4">
         <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
           <Card className="max-w">
             <CardHeader>
               <CardTitle>Edit Event</CardTitle>
-              <CardDescription>
-                Please fill-up form with accurate data.
-              </CardDescription>
+              <CardDescription>Edit the details of the event.</CardDescription>
             </CardHeader>
             <CardContent>
               <Form {...form}>
@@ -152,7 +155,7 @@ export default function Edit({ event }) {
                     />
 
                     {/* Picture */}
-                    {/* <FormField
+                    <FormField
                       control={form.control}
                       name="image"
                       render={({ field }) => (
@@ -167,7 +170,15 @@ export default function Edit({ event }) {
                               onChange={handleFileChange}
                             />
                           </FormControl>
-                          {preview && (
+                          {!isNewImg ? (
+                            <FormDescription>
+                              <img
+                                src={`/images/${event.image}`}
+                                alt="Preview"
+                                width="200"
+                              />
+                            </FormDescription>
+                          ) : (
                             <FormDescription>
                               <img src={preview} alt="Preview" width="200" />
                             </FormDescription>
@@ -175,7 +186,7 @@ export default function Edit({ event }) {
                           <FormMessage />
                         </FormItem>
                       )}
-                    /> */}
+                    />
 
                     {/* location */}
                     <FormField
@@ -223,6 +234,9 @@ export default function Edit({ event }) {
                               {...field}
                             />
                           </FormControl>
+                          <FormDescription>
+                            Person to contact for more information
+                          </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
@@ -235,9 +249,7 @@ export default function Edit({ event }) {
                     >
                       Back
                     </Button>
-                    <Button type="submit" onClick={(vals) => onSubmit(vals)}>
-                      Save
-                    </Button>
+                    <Button type="submit">Save</Button>
                   </div>
                 </form>
               </Form>

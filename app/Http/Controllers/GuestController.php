@@ -13,7 +13,7 @@ class GuestController extends Controller
     {
         $events = Event::where('is_active', true)
             ->orderBy('date', 'asc')
-            ->limit(3)
+            ->limit(4)
             ->get();
 
         // $events = Event::all();
