@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const registerSchema = z.object({
-  // email: z.string().email(),
   firstName: z.string().min(3).max(255),
   lastName: z.string().min(3).max(255),
   phone: z
@@ -12,7 +11,12 @@ export const registerSchema = z.object({
       message: "Invalid phone number",
     }),
   nationality: z.string().min(2).max(100),
-  // year: z.string().min(2).max(10),
-  // password: z.string().min(6).max(100),
-  // confirmPassword: z.string().min(6).max(100),
+});
+
+export const newEventSchema = z.object({
+  eventName: z.string().min(3, "Event name must be at least 3 characters long"),
+  details: z
+    .string()
+    .min(10, "Event details must be at least 10 characters long"),
+  location: z.string().min(3, "Location must be at least 3 characters long"),
 });

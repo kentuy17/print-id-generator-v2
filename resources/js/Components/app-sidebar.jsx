@@ -88,7 +88,7 @@ const data = {
       icon: BookOpen,
       subCategories: [
         {
-          title: "View all Tourists",
+          title: "Show all",
           url: "/tourists",
           route: "tourist",
         },
@@ -96,6 +96,24 @@ const data = {
           title: "Add Tourist",
           url: "/tourist/create",
           route: "tourist.create",
+        },
+      ],
+      roles: ["admin", "operator"],
+    },
+
+    {
+      name: "Events",
+      icon: Video,
+      subCategories: [
+        {
+          title: "Show all",
+          url: "/events",
+          route: "events",
+        },
+        {
+          title: "New Event",
+          url: "/event/create",
+          route: "event.create",
         },
       ],
       roles: ["admin", "operator"],
@@ -114,13 +132,13 @@ const data = {
       route: "reports",
       roles: ["admin"],
     },
-    {
-      name: "Appearance",
-      url: "#",
-      icon: Paintbrush,
-      route: "appearance",
-      roles: ["admin", "operator"],
-    },
+    // {
+    //   name: "Appearance",
+    //   url: "#",
+    //   icon: Paintbrush,
+    //   route: "appearance",
+    //   roles: ["admin", "operator"],
+    // },
     {
       name: "Profile Settings",
       url: "/profile",

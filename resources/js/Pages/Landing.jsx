@@ -5,13 +5,15 @@ import Events from "@/Components/landing/events";
 import { Announcements } from "@/Components/landing/announcements";
 import DestinationHighlight from "@/Components/landing/destination-highlight";
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome({ events, canLogin, canRegister }) {
   const handleImageError = () => {
     document.getElementById("screenshot-container")?.classList.add("!hidden");
     document.getElementById("docs-card")?.classList.add("!row-span-1");
     document.getElementById("docs-card-content")?.classList.add("!flex-row");
     document.getElementById("background")?.classList.add("!hidden");
   };
+
+  console.log([canLogin, canRegister]);
 
   return (
     <>
@@ -23,11 +25,12 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
               <div className="flex flex-shrink-0">
                 <a href="/" className="flex items-center mb-2">
                   <img
-                    alt="kayangan-lake"
+                    alt=""
                     className="h-18 w-24"
                     width="1920"
                     height="1080"
-                    src="/_astro/palawan.c9d8034a_tOt8d.png"
+                    src="/assets/siquijor-tourist-guide-logo-500px.png"
+                    // src="/assets/siquijor tourist guide logo - 500px.jpg"
                     loading="lazy"
                     decoding="async"
                   />
@@ -114,7 +117,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
       </div>
       <SocialLinks />
       <DestinationHighlight />
-      <Events />
+      <Events events={events} />
       <Announcements />
       <div className="p-8 hidden sm:flex"></div>
     </>
