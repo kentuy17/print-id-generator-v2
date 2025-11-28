@@ -31,20 +31,19 @@ class Roles extends Command
     public function handle()
     {
         //
-	$admin_role = Role::create(['name' => 'admin']);
-	$admin_perm = Permission::create(['name' => 'full access']);
+        $admin_role = Role::create(['name' => 'admin']);
+        $admin_perm = Permission::create(['name' => 'full access']);
 
-	$user_role = Role::create(['name' => 'operator']);
-	$user_perm = Permission::create(['name' => 'print ID']);
+        $user_role = Role::create(['name' => 'operator']);
+        $user_perm = Permission::create(['name' => 'print']);
 
-	$admin_role->givePermissionTo($admin_perm);
-	$user_role->givePermissionTo($user_perm);
+        $admin_role->givePermissionTo($admin_perm);
+        $user_role->givePermissionTo($user_perm);
 
-	$admin = User::find(1);
-	$admin->assignRole('admin','operator');
-	
-	$user = User::find(2);
-	$user->assignRole('operator');
-	
+        $admin = User::find(1);
+        $admin->assignRole('admin', 'operator');
+
+        $user = User::find(2);
+        $user->assignRole('operator');
     }
 }

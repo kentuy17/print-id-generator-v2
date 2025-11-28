@@ -32,28 +32,33 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        try {
+            //code...
+            $request->validate([
+                'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
+            if ($request->hasFile('image')) {
+                $imageName = time() . '.' . $request->image->extension();
+                $request->image->move(public_path('images'), $imageName);
+            }
+
+            Event::create([
+                'name' => $request->eventName,
+                'description' => $request->details,
+                'location' => $request->location,
+                'date' => Carbon::parse($request->date)->format('Y-m-d'),
+                'time' => $request->time ?? '00:00:00',
+                'image' => $imageName ?? null,
+                'is_active' => true,
+                'added_by' => auth()->user()->id,
+                'contact_number' => $request->contact_number ?? null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
-
-        Event::create([
-            'name' => $request->eventName,
-            'description' => $request->details,
-            'location' => $request->location,
-            'date' => Carbon::parse($request->date)->format('Y-m-d'),
-            'time' => $request->time ?? '00:00:00',
-            'image' => $imageName ?? null,
-            'is_active' => true,
-            'added_by' => auth()->user()->id,
-            'contact_number' => $request->contact_number ?? null,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
 
         return redirect()->intended(route('events', absolute: false));
     }
